@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>background EMO </title>
+<style>
+.backgrounddemo{
+	border-top:1px dashed #666;
+	margin-bottom:10px;
+}
+.backgrounddemo .box{
+	width:600px;
+	height:100px;
+}
+.backgrounddemo .origin{
+	padding:10px;
+	border:10px solid #cc0000;
+	margin:10px;
+	background-image:url(img/background-1.jpg);
+	background-repeat:no-repeat;
+	-webkit-background-origin:content;
+	-moz-background-origin:content;
+	-o-background-origin:content;
+	background-origin:content;
+}
+.backgrounddemo .clip{
+	padding:10px;
+	border:10px solid #cc0000;
+	margin:10px;
+	background-image:url(img/background-1.jpg);
+	background-repeat:no-repeat;
+	-webkit-background-clip:content-box;
+	-moz-background-clip:content-box;
+	-o-background-clip:content-box;
+	background-clip:content-box;
+}
+.backgrounddemo .size{
+	padding:10px;
+	border:10px solid #cc0000;
+	margin:10px;
+	background-image:url(img/background-1.jpg);
+	background-repeat:no-repeat; 
+	-webkit-background-size: 100% 80px;
+	-o-background-size: 100% 80px;
+}
+.backgrounddemo .all{
+	border-radius: 10px;
+	background-color: rgba(251,251,251,0);
+	-webkit-box-shadow: 0 1px 5px rgba(0,0,0,.8), inset 0 0 250px rgba(72,153,245,.6);
+	-moz-box-shadow: 0 1px 5px rgba(0,0,0,.8), inset 0 0 250px rgba(72,153,245,.6);
+	box-shadow: 0 1px 5px rgba(0,0,0,.8), inset 0 0 250px rgba(72,153,245,.6);
+	background-image: -webkit-linear-gradient(bottom, #020a87, #1c4fb8 50%, #245bc0 50%, #4699f7);
+	background-image: -moz-linear-gradient(bottom, #020a87, #1c4fb8 50%, #245bc0 50%, #4699f7);
+	background-image: -o-linear-gradient(bottom, #020a87, #1c4fb8 50%, #245bc0 50%, #4699f7);
+	background-image: -ms-linear-gradient(bottom, #020a87, #1c4fb8 50%, #245bc0 50%, #4699f7);
+	background-image: linear-gradient(to top, #020a87, #1c4fb8 50%, #245bc0 50%, #4699f7);
+}
+</style>
+</head>
+<body>
+<header>
+	<h1>背景属性DEMO</h1>
+</header>
+<section class="backgrounddemo">
+	<h2>background-origin</h2>
+	<div class="origin box">从何区域开始背景</div>
+</section>
+<section class="backgrounddemo">
+	<h2>background-clip</h2>
+	<div class="clip box">除了某个区域其他区域背景遮蔽</div>
+</section>
+<section class="backgrounddemo">
+	<h2>background-size</h2>
+	<div class="size box">背景大小</div>
+</section>
+<section class="backgrounddemo">
+	<h2>background_all</h2>
+	<div class="all box">综合</div>
+</section>
+<footer></footer>
+</body>
+</html>

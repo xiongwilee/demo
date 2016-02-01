@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" class=" js csstransforms3d"><head>
+  <meta charset="utf-8">
+  
+  <!-- disable zooming -->
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=0">
+
+  <title>iconfont test</title>
+
+    <style>
+      @font-face {font-family: 'iconfont';
+          src: url('../bootstrap/fonts/iconfont.eot'); /* IE9*/
+          src: url('../bootstrap/fonts/iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+          url('../bootstrap/fonts/iconfont.woff') format('woff'), /* chrome、firefox */
+          url('../bootstrap/fonts/iconfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+          url('../bootstrap/fonts/iconfont.svg#iconfont') format('svg'); /* iOS 4.1- */
+      }
+
+      .iconfont{font-family:"iconfont";font-size:16px;font-style:normal;}
+
+      .icontest .font-css:before{
+        content:'\343b';
+      }
+    </style>
+
+</head>
+<body>
+  <section class="icontest">
+        <i class="iconfont">&#xf0035;</i>
+        <i class="iconfont font-css"></i>
+  </section>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>borderD EMO </title>
+<style>
+.borderdemo{
+	border-top:1px dashed #666;
+	margin-bottom:10px;
+}
+.borderdemo .box{
+	width:600px;
+	height:100px;
+}
+.borderdemo .colors{
+	border: 8px solid;
+	/*只能bottom top left right 单独定义，不能使用border-color进行全局定义*/
+	-moz-border-bottom-colors: #cc0000 #00cc00 #0000cc #cccc00 #00cccc;
+	-moz-border-top-colors: #cc0000 #00cc00 #0000cc #cccc00 #00cccc;
+	-moz-border-left-colors:#cc0000 #00cc00 #0000cc #cccc00 #00cccc;
+	-moz-border-right-colors: #cc0000 #00cc00 #0000cc #cccc00 #00cccc;
+	padding: 5px 5px 5px 15px;
+}
+.borderdemo .image-1{
+	-webkit-border-image: url(img/borderimages.png) 0 12 0 12 stretch stretch;
+	-moz-border-image: url(img/borderimages.png) 0 12 0 12 stretch stretch;
+    display: block;
+    border-width: 0 12px;
+    padding: 12px;
+    text-align: center;
+    font-size: 16px;
+    text-decoration: inherit;
+}
+.borderdemo .image-2{
+	-webkit-border-image: url(img/borderimages.png) 12 stretch;
+	-moz-border-image: url(img/borderimages.png) 12 stretch;
+    display: block;
+    border-width: 12px;
+    padding: 12px;
+    text-align: center;
+    font-size: 16px;
+    text-decoration: inherit;
+}
+.borderdemo .borderradius{
+	background:#ccc;
+	border:5px solid #333;
+	border-radius: 10px 15px 20px 30px / 20px 30px 10px 15px;
+	/*相当于：
+	border-top-left-radius: 10px 20px;
+	border-top-right-radius: 15px 30px;
+	border-bottom-right-radius: 20px 10px;
+	border-bottom-left-radius: 30px 15px;	
+	*/
+}
+.borderdemo .boxshadow-1{
+	-moz-box-shadow:5px 5px 5px #999 inset;               /* For Firefox3.6+ */
+	-webkit-box-shadow:5px 5px 5px #999 inset;            /* For Chrome5+, Safari5+ */
+	box-shadow:5px 5px 5px #999 inset;                    /* For Latest Opera */
+}
+.borderdemo .boxshadow-2{
+	-moz-box-shadow:5px 5px 5px #999 ;               /* For Firefox3.6+ */
+	-webkit-box-shadow:5px 5px 5px #999 ;            /* For Chrome5+, Safari5+ */
+	box-shadow:5px 5px 5px #999 ;                    /* For Latest Opera */
+}
+.borderdemo .boxshadow-3{
+	-moz-box-shadow:5px 5px 5px 2px #999 ;               /* For Firefox3.6+ */
+	-webkit-box-shadow:5px 5px 5px 2px #999 ;            /* For Chrome5+, Safari5+ */
+	box-shadow:5px 5px 5px 2px #999 ;                    /* For Latest Opera */
+}
+</style>
+</head>
+<body>
+<header>
+	<h1>边框属性DEMO</h1>
+</header>
+<section class="borderdemo">
+	<h2>border-color</h2>
+	<div class="colors box">在Firefox浏览器里能看到边框颜色渐变效果</div>
+</section>
+<section class="borderdemo">
+	<h2>border-image</h2>
+	<div class="image-1">这是可拉伸的borderimage</div>
+	<div class="image-2 box">这是可拉伸的borderimage</div>
+</section>
+<section class="borderdemo">
+	<h2>border-radius</h2>
+	<div class="borderradius box">这是可变弧度的圆角框</div>
+</section>
+<section class="borderdemo">
+	<h2>box-shadow</h2>
+	<div class="boxshadow-1 box">这是盒子内阴影</div>
+	<div class="boxshadow-2 box">这是盒子外阴影</div>
+	<div class="boxshadow-3 box">这是盒子有扩散的外阴影</div>
+</section>
+<footer></footer>
+</body>
+</html>

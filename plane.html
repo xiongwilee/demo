@@ -1,0 +1,127 @@
+
+<!DOCTYPE html>
+<html lang="en" class=" js csstransforms3d"><head>
+  <meta charset="utf-8">
+  <!-- disable zooming -->
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=0">
+  <title>Cube 2 - show sides · Intro to CSS 3D transforms › Examples</title>
+  <link rel="stylesheet" href="../css/style.css" media="screen">
+</head>
+<body>
+<style>
+html,body{background:#333;}
+.plane{
+	position: relative;
+	width: 200px;
+	height: 160px;
+	margin: 50px auto 0 auto;
+	-webkit-transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+	
+	-webkit-transform-origin: 100px 80px;
+	-moz-transform-origin: 100px 80px;
+	transform-origin: 100px 80px;
+	
+	-webkit-transform: rotateX(0deg) rotateY(0deg) rotateZ(90deg);
+}
+.left_wing{
+	position: absolute;
+	left: 0;
+	top: 0px;
+	width: 200px;
+	height: 80px;
+	border-bottom: 1px solid black;
+	-webkit-transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+	-webkit-transform-origin: 0 80px;
+	-moz-transform-origin: 0 80px;
+	transform-origin: 0 80px;
+	-webkit-transform: rotateZ(0deg) rotateX(-85deg);
+	-webkit-animation-fill-mode: forwards;
+	-moz-animation-fill-mode: forwards;
+}
+.wingl1{
+	width: 0;
+	height: 0;
+	border-right: 200px solid transparent;
+	border-bottom: 80px solid #EEF;
+}
+.wingl2{
+	position: absolute;
+	left: -14px;
+	top: -6px;
+	width: 0px;
+	height: 0px;
+	opacity: 0.8;
+
+	border-left: 200px solid #ffffff;
+	border-top: 80px solid transparent;
+
+	-webkit-transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+	-webkit-transform-origin: 200px 80px;
+	-moz-transform-origin: 200px 80px;
+	transform-origin: 200px 80px;
+
+	-webkit-transform: rotateX(90deg) rotateY(22deg) rotateZ(0deg);
+}
+.right_wing{
+	position: absolute;
+	left: 0;
+	top: 80px;
+	width: 200px;
+	height: 80px;
+	border-top: 1px solid black;
+	-webkit-transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+	-webkit-transform-origin: 0 0;
+	-moz-transform-origin: 0 0;
+	transform-origin: 0 0;
+	-webkit-transform: rotateZ(0deg) rotateX(85deg);
+	-webkit-animation-fill-mode: forwards;
+	-moz-animation-fill-mode: forwards;
+}
+.wingr1{
+	width: 0;
+	height: 0;
+	border-right: 200px solid transparent;
+	border-top: 80px solid #EEF;
+}
+
+.wingr2{
+	position: absolute;
+	left: 16px;
+	top: 0px;
+	width: 0px;
+	height: 0px;
+	opacity: 0.8;
+
+	border-left: 200px solid #ffffff;
+	border-top: 80px solid transparent;
+
+	-webkit-transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+	-webkit-transform-origin:200px 80px;
+	-moz-transform-origin: 200px 80px;
+	transform-origin: 200px 80px;
+
+	-webkit-transform: rotateX(90deg) rotateY(-22deg) rotateZ(0deg) translateZ(80px);
+}
+</style>
+<div class="plane" style="">
+	<div class="left_wing">
+		<div class="wingl1"></div>
+		<div class="wingl2"></div>
+	</div>
+	<div class="right_wing">
+		<div class="wingr1"></div>
+		<div class="wingr2"></div>
+	</div>
+</div>
+</body>
+</html>

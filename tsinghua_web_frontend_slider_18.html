@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery测试</title>
+    <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+    <link rel="stylesheet" type="text/css" href="./css/runcode.css?asdf" />
+    <style>
+		button{
+			width: auto;
+			padding: 0px 20px;
+			display: inline-block;
+		}
+    </style>
+</head>
+<body>
+<div id="movieContainer" style="width: 600px; height: 450px;margin:0 auto;">
+    <div class="x-container" style="width: 100%;height: 100%;">
+    </div>
+    <div class="btns" style="text-align:center;">
+        <button id="btnStartPlay">播放</button>
+        <button id="btnStopPlay">停止</button>
+        <button id="btnFullScreen">全屏</button>
+    </div>
+</div>
+<script>
+(function(b) {
+    function a(c) {
+        this.options = b.extend(true, {element: b("body"),callback: b.noop,noSafari: false}, c);
+        if (this.options.noSafari && this._browser.safari) {
+            this.fullscreenEnabled = false
+        }
+        this._initEvents()
+    }
+    b.extend(a.prototype, {toggleFullscreen: function() {
+            if (!this.fullscreenEnabled) {
+                return
+            }
+            if (this.fullscreen()) {
+                this.exitFullscreen()
+            } else {
+                var c = this.options.element.addClass("fullscreen");
+                this.requestFullscreen(c.get(0))
+            }
+        },_initEvents: function() {
+            if (!this.fullscreenEnabled) {
+                return
+            }
+            var c = this, d = b(document);
+            d.unbind("fullscreenchange webkitfullscreenchange mozfullscreenchange").bind("fullscreenchange webkitfullscreenchange mozfullscreenchange", function(e) {
+                if (!c.fullscreen()) {
+                    c.options.element.removeClass("fullscreen")
+                }
+                c.options.callback.call(c, c.fullscreen())
+            })
+        },_browser: (function() {
+            var d = window.navigator.userAgent.toUpperCase(), c = {};
+            c.chrome = /CHROME/.test(d);
+            c.safari = !c.chrome && /SAFARI/.test(d);
+            return c
+        })(),fullscreen: function() {
+            return document.fullscreen || document.webkitIsFullScreen || document.mozFullScreen || false
+        },fullscreenElement: function() {
+            return document.fullscreenElement || document.webkitCurrentFullScreenElement || document.mozFullScreenElement || null
+        },fullscreenEnabled: (function() {
+            var c = document.documentElement;
+            return ("requestFullscreen" in c) || ("webkitRequestFullScreen" in c) || ("mozRequestFullScreen" in c && document.mozFullScreenEnabled) || false
+        })(),requestFullscreen: function(c) {
+            if (c.requestFullscreen) {
+                c.requestFullscreen()
+            } else {
+                if (c.webkitRequestFullScreen) {
+                    if (this._browser.chrome) {
+                        c.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT)
+                    } else {
+                        c.webkitRequestFullScreen()
+                    }
+                } else {
+                    if (c.mozRequestFullScreen) {
+                        c.mozRequestFullScreen()
+                    }
+                }
+            }
+        },exitFullscreen: function() {
+            if (document.exitFullscreen) {
+                document.exitFullscreen()
+            } else {
+                if (document.webkitCancelFullScreen) {
+                    document.webkitCancelFullScreen()
+                } else {
+                    if (document.mozCancelFullScreen) {
+                        document.mozCancelFullScreen()
+                    }
+                }
+            }
+        }});
+    window.Fullscreen = a
+})(jQuery);
+(function(){
+	var a = null;
+    $("#btnStartPlay").click(function(b) {
+        var flashHTML = '<embed type="application/x-shockwave-flash" class="edui-faked-video" pluginspage="http://www.macromedia.com/go/getflashplayer" src="/image/post/tsinghua_web_frontend_slider/google-io-realtime-app.swf?v=1fe2fccd" width="100%" height="100%" align="none" wmode="transparent" play="true" loop="false" menu="false" allowscriptaccess="never" allowfullscreen="true">';
+
+        $(this).css({top: "auto",bottom: 0,left: 0});
+        $("#movieContainer .x-container").html(flashHTML);
+        $("#btnStopPlay").show()
+    });
+    $("#btnStopPlay").click(function(b) {
+        $(this).hide();
+        $("#btnStartPlay").css({top: 120,bottom: "auto",left: 180});
+        $("#movieContainer .x-container").html("")
+    });
+    $("#btnFullScreen").click(function(c) {
+        var b = this;
+        if (!a) {
+            var d = $("#movieContainer");
+            a = new Fullscreen({element: d,callback: function(e) {
+                    if (!e) {
+                        $(b).html("进入全屏");
+                        d.css({width: 600,height: 450})
+                        d.find('.btns').show();
+                    } else {
+                        $(b).html("退出全屏");
+                        d.css({width: $(window).width(),height: $(window).height(),'background':'#000000'});
+                        d.find('.btns').hide();
+                    }
+                }})
+        }
+        a.toggleFullscreen();
+        c.preventDefault()
+    })
+})()
+</script>
+</body>
+</html>

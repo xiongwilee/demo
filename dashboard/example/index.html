@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" class="theme-dark">
+
+<head>
+    <title>dashboard test</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../bower_components/fontawesome/css/font-awesome.css" />
+    <script type="text/javascript" src="../bower_components/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="../bower_components/jquery-cookie/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../src/pinyinEngine0.3/pinyinEngine.js"></script>
+</head>
+
+<body class="body sidenav-default ">
+    <div class="head">
+        <div class="logo" id="logo">
+            <a class="logo-link" href="/" title="美丽说-商家中心"> <img class="logo-img" src="https://shop.meilishuo.com/shop/static/img/common/logo_grey.png" alt="美丽说-商家中心" id="logo_img"> </a>
+            <a href="/" title="美丽说-商家中心"> <i class="logo-icon fa fa-logo" title="美丽说-商家中心"></i> </a> <span class="logo-version">V3.0</span> <span class="logo-theme" id="logo-theme"> <i data-theme="grey" class="logo-theme-type logo-theme-grey"></i> <i data-theme="dark" class="logo-theme-type logo-theme-dark"></i> <i data-theme="red" class="logo-theme-type logo-theme-red"></i> </span> </div>
+        <div class="nav">
+            <div class="nav-left"> <i class="nav-side-controller fa fa-caret-left" id="nav_slide_btn"></i> </div>
+            <div class="nav-right">
+                <!-- <div class="nav-item nav-fast" id="gray_released_btn_wrapper"> <a href="javascript:void(0);" class="btn btn-primary btn-xs" id="gray_released_btn">返回旧版</a> </div> -->
+                <div class="nav-item nav-link">
+                </div>
+                <div class="nav-item nav-link">
+                </div>
+                <div class="nav-item nav-panel" id="nav_panel">
+                    <div class="panel-item panel-portrait">
+                        <a href="http://zxlwww.bizfe.meilishuo.com/shop/100843" title="我的店铺" target="_blank"> <img class="panel-portrait-img" src="http://124.202.144.17/ap/a/82/86/33242b00ff10661475e75511fe76_933_931.c1.jpg" alt="商家" title="商家"> </a>
+                    </div>
+                    <div class="panel-item panel-username" id="nav_panel_username"> <span class="panel-username-wrapper"> <a href="http://zxlwww.bizfe.meilishuo.com/shop/100843" target="_blank" class="color-black" title="梦得宝商铺">梦得宝商铺</a> </span> <span class="panel-username-shopid text-muted">（ID：<span class="color-pink">100843</span>）</span>
+                        <!--i class="panel-username-icon fa fa-down"></i-->
+                    </div>
+                    <div class="panel-item"> <span class="right"><a class="defail-link" href="/user/logout">退出</a></span> </div>
+                </div>
+            </div>
+        </div>
+        <div class="station-msg" id="head-station-msg">
+            <p id="station-msg-num-wrapper" id="headStationMsgWrapper">您有<span class="color-red red_f">0</span>条新消息</p>
+            <p><a class="red_f" href="/message/list/" target="_blank">立即查看</a></p>
+        </div>
+    </div>
+    <div class="wrapper">
+        <div class="sidenav " id="sidenav">
+            <div class="sidenav-wrapper">
+                <div class="sidenav-search" id="sidenavSearch">
+                    <label class="search-label fa fa-search" for="search" id="sidenav_search_label"></label>
+                    <input class="search-input" type="text" placeholder="搜索(支持拼音检索)" id="sidenav_search_input"> </div>
+                <div class="sidenav-header">
+                    <dl class="sidenav-collect" id="sidenav_collect_list">
+                        <dt class="sidenav-collect-title"><i class="fa fa-star"></i> <span class="title-text">常用菜单</span><i class="right right-default fa fa-chevron-down"></i><i class="right right-actived fa fa-chevron-up"></i> </dt>
+                        <div class="sidenav-collect-link-group">
+                            <!-- <dd data-href="/deal/order/" class="sidenav-collect-link"><i class="fa">·</i><span class="link-text">订单管理</span><i class="delete-collect right fa fa-error"></i></a> -->
+                        </div>
+                    </dl>
+                </div>
+                <div class="sidenav-content">
+                    <dl href="/home/#/index" class="sidenav-item sidenav-item-home" id="sidenav_item_home">
+                        <dt class="sidenav-item-title"><i class="fa fa-home"></i> <span class="title-text">首页</span>
+                            <!--<a class="title-text feedback-link none-hidden" href="http://www.sojump.com/jq/4824649.aspx" target="_blank">改版调查</a>--></dt>
+                    </dl>
+                    <dl class="sidenav-item sidenav-item-normal">
+                        <dt class="sidenav-item-title"><i class="fa fa-th-list"></i> <span class="title-text">交易管理</span> <i class="right right-default fa fa-chevron-down"></i><i class="right right-actived fa fa-chevron-up"></i> </dt>
+                        <dd class="sidenav-item-link-group"> <a href="/deal/order/" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">订单管理</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> <a href="/deal/refund/" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">退款退货</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> <a href="/deal/deliver/" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">发货管理</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> <a href="/deal/aftersale/" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">售后管理</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> <a href="/comment/list/" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">评价管理</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> <a href="/deal/complaint/" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">投诉管理</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  <i class="new-tip right fa fa-new"></i>  </a> </dd>
+                    </dl>
+                    <dl class="sidenav-item sidenav-item-normal">
+                        <dt class="sidenav-item-title"><i class="fa fa-cubes"></i> <span class="title-text">商品管理</span> <i class="right right-default fa fa-chevron-down"></i><i class="right right-actived fa fa-chevron-up"></i> </dt>
+                        <dd class="sidenav-item-link-group"> <a href="/goodsmg/onsale/" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">出售中的商品</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> <a href="/goodsmg/onpresell/" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">预售商品</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> <a href="/goodsmg/onstore/" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">仓库中的商品</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> <a href="/goods/select_category/" class="sidenav-item-link" target="_blank" data-target-blank="1"><i class="fa">·</i> <span class="link-text">发布新商品</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> <a href="/goodsmg/realshot" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">单品实拍管理</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> <a href="/album/" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">商品相册</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> <a href="/goodsmg/desire/" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">美丽制造</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> </dd>
+                    </dl>
+                    <dl class="sidenav-item sidenav-item-normal">
+                        <dt class="sidenav-item-title"><i class="fa fa-thumbs-up"></i> <span class="title-text">营销中心</span> <i class="right right-default fa fa-chevron-down"></i><i class="right right-actived fa fa-chevron-up"></i> </dt>
+                        <dd class="sidenav-item-link-group"> <a href="/market/promotion/" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">促销管理</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> <a href="/market/coupon/" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">店铺优惠券</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> <a href="/combine/list/" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">组合购买</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> <a href="/pair/" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">搭配频道</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> <a href="/market/act_manage/" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">活动管理</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> <a href="/market/material/" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">素材提报</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> <a href="/groupbuy/manage/" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">团购报名</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> <a href="http://pro.meilishuo.com" class="sidenav-item-link" target="_blank" data-target-blank="1"><i class="fa">·</i> <span class="link-text">推广平台</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> <a href="/vip/" class="sidenav-item-link" target="_blank" data-target-blank="1"><i class="fa">·</i> <span class="link-text">客户关系管理</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> </dd>
+                    </dl>
+                    <dl class="sidenav-item sidenav-item-normal">
+                        <dt class="sidenav-item-title"><i class="fa fa-pie-chart"></i> <span class="title-text">数据中心</span> <i class="right right-default fa fa-chevron-down"></i><i class="right right-actived fa fa-chevron-up"></i> </dt>
+                        <dd class="sidenav-item-link-group"> <a href="/dc/real" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">实时直播</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> <a href="/dc/info" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">店铺诊断</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> <a href="/dc/shop/" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">销售分析</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> <a href="/dc/flow" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">流量分析</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> <a href="/dc/single/" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">单品分析</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> <a href="/dc/source/" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">来源分析</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> <a href="/dc/analyze/" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">买家分析</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> <a href="/dc/industry" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">行业分析</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> </dd>
+                    </dl>
+                    <dl class="sidenav-item sidenav-item-normal">
+                        <dt class="sidenav-item-title"><i class="fa fa-puzzle-piece"></i> <span class="title-text">好店装修</span> <i class="right right-default fa fa-chevron-down"></i><i class="right right-actived fa fa-chevron-up"></i> </dt>
+                        <dd class="sidenav-item-link-group"> <a href="/sign/mob/" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">客户端</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> <a href="/banner/goods_pc/" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">PC端</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> <a href="/decorate/" class="sidenav-item-link" target="_blank" data-target-blank="1"><i class="fa">·</i> <span class="link-text">PC店铺装修</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> </dd>
+                    </dl>
+                    <dl class="sidenav-item sidenav-item-normal">
+                        <dt class="sidenav-item-title"><i class="fa fa-cog"></i> <span class="title-text">好店设置</span> <i class="right right-default fa fa-chevron-down"></i><i class="right right-actived fa fa-chevron-up"></i> </dt>
+                        <dd class="sidenav-item-link-group"> <a href="/goods/category_list/" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">店铺分类</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> <a href="/goods/classify/" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">商品分类</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> <a href="/settings/" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">基础设置</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> <a href="/address/" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">退货地址</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> <a href="/freight_template/" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">运费模板</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> </dd>
+                    </dl>
+                    <dl class="sidenav-item sidenav-item-normal">
+                        <dt class="sidenav-item-title"><i class="fa fa-heart"></i> <span class="title-text">客服管理</span> <i class="right right-default fa fa-chevron-down"></i><i class="right right-actived fa fa-chevron-up"></i> </dt>
+                        <dd class="sidenav-item-link-group"> <a href="/service/" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">客服账号设置</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> <a href="/download/" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">客服工具下载</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> <a href="/kefu/kpi" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">客服绩效统计</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> </dd>
+                    </dl>
+                    <dl class="sidenav-item sidenav-item-normal">
+                        <dt class="sidenav-item-title"><i class="fa fa-credit-card "></i> <span class="title-text">结算管理</span> <i class="right right-default fa fa-chevron-down"></i><i class="right right-actived fa fa-chevron-up"></i> </dt>
+                        <dd class="sidenav-item-link-group"> <a href="/settlement/" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">结算账户</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> <a href="/finance/" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">结算查询</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> <a href="/invoice/" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">发票申请</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> </dd>
+                    </dl>
+                    <dl class="sidenav-item sidenav-item-normal">
+                        <dt class="sidenav-item-title"><i class="fa fa-bank"></i> <span class="title-text">店铺管理</span> <i class="right right-default fa fa-chevron-down"></i><i class="right right-actived fa fa-chevron-up"></i> </dt>
+                        <dd class="sidenav-item-link-group"> <a href="/back/" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">申请退店</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> <a href="/manage/agreement/" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">KA商家签约</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> <a href="/manage/shopstreet/" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">店铺街</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> </dd>
+                    </dl>
+                    <dl class="sidenav-item sidenav-item-normal">
+                        <dt class="sidenav-item-title"><i class="fa fa-group"></i> <span class="title-text">权限管理</span> <i class="right right-default fa fa-chevron-down"></i><i class="right right-actived fa fa-chevron-up"></i> </dt>
+                        <dd class="sidenav-item-link-group"> <a href="/authoritymg/role/" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">角色管理</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> <a href="/authority/user_list/" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">用户列表</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> </dd>
+                    </dl>
+                    <dl class="sidenav-item sidenav-item-normal">
+                        <dt class="sidenav-item-title"><i class="fa fa-shield"></i> <span class="title-text">监管中心</span> <i class="right right-default fa fa-chevron-down"></i><i class="right right-actived fa fa-chevron-up"></i> </dt>
+                        <dd class="sidenav-item-link-group"> <a href="/monitor/deliver/" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">发货诊断</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> <a href="/manage/punish/" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">违规管理</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> <a href="/monitor/risk" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">风险订单管理</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> </dd>
+                    </dl>
+                    <dl class="sidenav-item sidenav-item-normal">
+                        <dt class="sidenav-item-title"><i class="fa fa-comment"></i> <span class="title-text">服务管理</span> <i class="right right-default fa fa-chevron-down"></i><i class="right right-actived fa fa-chevron-up"></i> </dt>
+                        <dd class="sidenav-item-link-group"> <a href="/application/" class="sidenav-item-link" data-target-blank="0"><i class="fa">·</i> <span class="link-text">我的应用</span>  <i class="add-collect right fa fa-star" title="加入常用菜单"></i>  </a> </dd>
+                    </dl>
+                </div>
+            </div>
+            <div class="feedback-nav-wrappers">
+                <div class="feedback-nav-right"> <a class="feedback-nav-right-link" href="http://www.meilishuo.com/help/robot?source=pc_business" target="_blank" title="联系MIXI智能客服机器人"><i class="fa fa-headset"></i><span class="link-text">智能客服</span></a> </div>
+                <ul class="tools-none">
+                    <li><i class="fa fa-link"></i></li>
+                </ul>
+                <ul class="tools-default">
+                    <li class="tools-default-item" title="联系美丽说客服" data-toggle="popover" data-placement="right" id="popover-robot" data-trigger="click"><span class="hover-tip">联系客服</span><i class="tools-default-icon fa fa-phone-square"></i></li>
+                    <li class="tools-default-item last" title="问题反馈" data-toggle="modal" data-target="#API_FEEDBACK"><span class="hover-tip">问题反馈</span><i class="tools-default-icon fa fa-edit"></i></li>
+                    <li class="tools-default-item last" title="页面功能引导"><span class="hover-tip">功能引导</span><i class="tools-default-icon fa fa-compass"></i></li>
+                </ul>
+            </div>
+        </div>
+        <div class="content" id="content">
+            <div class="content-wrapper">
+            	test
+            </div>
+        </div>
+        <div id="loading-icon" class="loading-hidden"></div>
+    </div>
+
+    <link rel="stylesheet" href="../dist/dashboard.css" />
+    <script type="text/javascript" src="../dist/jquery-dashboard.min.js"></script>
+	<script>
+	$(function() {
+		var Nav = $(document).renderNav();
+	});
+	</script>
+</body>
+</html>

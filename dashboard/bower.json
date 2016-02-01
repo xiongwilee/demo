@@ -1,0 +1,22 @@
+{
+  "name": "dashboard",
+  "version": "0.0.0",
+  "homepage": "https://github.com/bizfe/dashboard",
+  "authors": [
+    "xiongwilee <wilee@outlook.com>"
+  ],
+  "description": "美丽说商家中心v3.0版dashboard外壳jQuery插件",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "fontawesome": "~4.3.0",
+    "jquery": "~2.1.4",
+    "jquery-cookie": "~1.4.1"
+  }
+}
