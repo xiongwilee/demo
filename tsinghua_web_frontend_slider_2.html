@@ -1,0 +1,40 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>tsinghua_web_frontend_slider</title>
+<link rel="stylesheet" type="text/css" href="./css/runcode.css?asdf" />
+<script type="text/javascript" src="./js/runcode.js"></script>
+</head>
+<body>
+	<textarea id="testCode">
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM节点的查询</title>
+</head>
+<body>
+    <div id="helloWorld">Hello World</div>
+    <a href="http://www.baidu.com">百度</a>
+    <section class="slide">slide 1</section>
+    <section class="slide">slide 2</section>
+
+    <script type="text/javascript">
+        // 查询id为 helloWorld 的节点
+        var helloWorld = document.getElementById('helloWorld');
+        console.log("通过getElementById获取节点：",helloWorld);
+
+        // 查询页面上的所有 a 标签
+        var aTags = document.getElementsByTagName('a');
+        console.log("通过getElementsByTagName获取节点：",aTags);
+
+        // 查询class为 .slide 的节点
+        var slides = document.getElementsByClassName('slide');
+        console.log("通过getElementsByClassName：",slides);
+    </script>
+</body>
+</html>
+	</textarea>
+	<button onclick="runCode('testCode')">点击运行</button>
+</body>
+</html>
