@@ -39,12 +39,8 @@
 </head>
 <body>
 	<div class="container">
-		<textarea class="editor" id="editor">
-			test
-			test
-			test
-			test
-		</textarea>
+		<h2>Grace Wang删除换行的工具</h2>
+		<textarea class="editor" id="editor" placeholder="请输入内容"></textarea>
 		<div class="button">
 			<button id="clear_warp_button">删除所有的换行</button>
 			<button id="clear_blank_button">删除所有的换行和空格</button>
@@ -56,14 +52,14 @@
 			$editor = document.getElementById('editor');
 
 		$clearWarpButton.addEventListener('click', function (evt) {
-			var html = $editor.innerHTML;
-			$editor.innerHTML = html.replace(/\n/g,'');
+			var html = $editor.value;
+			$editor.value = html.replace(/\n/g,'');
 			$editor.select()
 		})
-		
+
 		$clearBlankButton.addEventListener('click', function (evt) {
-			var html = $editor.innerHTML;
-			$editor.innerHTML = html.replace(/\n|\W/g,'');
+			var html = $editor.value;
+			$editor.value = html.replace(/\n|\W/g,'');
 			$editor.select()
 		})
 	</script>
