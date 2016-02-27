@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>清除换行</title>
+<style>
+.container{
+	width: 80%;
+	margin: 0 auto;
+}
+.editor{
+	min-height: 300px;
+	width: 96%;
+	padding: 2%;
+	border: 1px solid #efefef;
+	border-radius: 5px;
+	outline: none;
+}
+.editor:focus{
+	border-color: #999999;
+}
+.button{
+	padding: 10px 0px;
+	text-align: right;
+}
+.button button{
+	padding: 10px;
+	border: none;
+	background: #2D6FC8;
+	border-radius: 5px;
+	color: #efefef;
+	cursor: pointer;
+}
+.button button:hover{
+	background: #1F4C88;
+	color: #ffffff;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<textarea class="editor" id="editor">
+			test
+			test
+			test
+			test
+		</textarea>
+		<div class="button">
+			<button id="clear_warp_button">删除所有的换行</button>
+			<button id="clear_blank_button">删除所有的换行和空格</button>
+		</div>
+	</div>
+	<script>
+		var $clearWarpButton = document.getElementById('clear_warp_button'),
+			$clearBlankButton = document.getElementById('clear_blank_button'),
+			$editor = document.getElementById('editor');
+
+		$clearWarpButton.addEventListener('click', function (evt) {
+			var html = $editor.innerHTML;
+			$editor.innerHTML = html.replace(/\n/g,'');
+			$editor.select()
+		})
+		
+		$clearBlankButton.addEventListener('click', function (evt) {
+			var html = $editor.innerHTML;
+			$editor.innerHTML = html.replace(/\n|\W/g,'');
+			$editor.select()
+		})
+	</script>
+</body>
+</html>
