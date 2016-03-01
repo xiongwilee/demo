@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>双飞翼布局</title>
+<style type="text/css">
+    *{margin: 0;padding: 0;}
+    body{min-width: 700px;}
+    .header,.footer{
+        clear: both;
+        background: #cccccc;
+        height: 30px;
+    }
+    .main{
+        min-height: 200px;
+        background: #efefef;
+    }
+    .extra{
+        min-height: 200px;
+        background: #999999;
+    }
+    .sub{
+        min-height: 200px;
+        background: #666666;
+    }
+
+    /* 双飞翼布局 */
+    .layout-1{
+        position: relative;
+        overflow: hidden;
+    }
+    .layout-1 .main{
+        float: left;
+        width: 100%;
+    }
+    .layout-1 .main .main-inner{
+        margin: 0px 300px 0px 200px
+    }
+    .layout-1 .sub{
+        float: left;
+        margin-left:-100%;
+        width: 200px; 
+    }
+    .layout-1 .extra{
+        float: left;
+        margin-left: -300px;
+        width: 300px;
+    }
+    /* 圣杯布局 */
+    .layout-2 {
+        margin-top: 50px;
+    }
+    .layout-2 .container{
+        position: relative;
+        overflow: hidden;
+        padding: 0px 300px 0px 200px
+    }
+    .layout-2 .main{
+        float: left;
+        width: 100%;
+    }
+    .layout-2 .sub{
+        position: relative;
+        float: left;
+        margin-left: -100%;
+        width: 200px;
+        left: -200px;
+    }
+    .layout-2 .extra{
+        position: relative;
+        float: left;
+        margin-left: -300px;
+        right: -300px;
+        width: 300px;
+    }
+</style>
+</head>
+<body>
+
+<div class="layout-1">
+<div class="header">
+    <h4>双飞翼布局：header</h4>
+</div>
+<div class="main">
+<div class="main-inner">
+    <h4>main</h4>
+    <p>HHHHHHHHHHHHHHHHHHHHHH
+    hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+    HHHHHHHHHHHHHHHHHHHHHH
+    hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+    </p>
+    </div>
+</div> 
+<div class="sub">
+<h4>sub</h4>
+<p>oooooooooooooo
+    0000000000000000
+    00000000000000000
+    ooooooooooooooo
+    ooooooooooooooo
+    000000000000000</p>
+</div>
+<div class="extra">
+<h4>extra</h4>
+    <p>BBBBBBBBBBBBBB
+    888888888888888888
+    BBBBBBBBBBBBBBBBBB
+    88888888888888888888</p>
+</div>
+<div class="footer">
+    <h4>footer</h4>
+</div>
+</div>
+
+<div class="layout-2">
+<div class="header">
+    <h4>圣杯布局：header</h4>
+</div>
+<div class="container">
+<div class="main">
+    <h4>main</h4>
+    <p>HHHHHHHHHHHHHHHHHHHHHH
+    hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+    HHHHHHHHHHHHHHHHHHHHHH
+    hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+    </p>
+    </div>
+<div class="sub">
+<h4>sub</h4>
+    <p>oooooooooooooo
+    0000000000000000
+    00000000000000000
+    ooooooooooooooo
+    ooooooooooooooo
+    000000000000000</p>
+</div>
+
+  <div class="extra">
+<h4>extra</h4>
+    <p>BBBBBBBBBBBBBB
+    888888888888888888
+    BBBBBBBBBBBBBBBBBB
+    88888888888888888888</p>
+</div>
+</div>
+<div class="footer">
+    <h4>footer</h4>
+</div>
+</div>
+</body>
+</html>
