@@ -59,7 +59,7 @@
 
 		$clearBlankButton.addEventListener('click', function (evt) {
 			var html = $editor.value;
-			$editor.value = html.replace(/\n|\W/g,'');
+			$editor.value = html.replace(/\n|\s/g,'');
 			$editor.select()
 		})
 	</script>
