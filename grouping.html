@@ -6,34 +6,7 @@
   <style type="text/css">
 
   </style>
-</head>
-
-<body>
-  <div>
-    <label>团队人数</label>
-    <input type="text" id="num" value="2">
-  </div>
-  <div>
-    <label>单人发票金额</label>
-    <input type="text" id="val" value="3">
-  </div>
-  <div>
-    <label>发票列表（空格隔开）</label>
-    <input type="text" id="list" value="1.5 1.2 3.5 4.2 2.7 6.8">
-  </div>
-  <div>
-    <input type="button" id="button" value="提交">
-  </div>
   <script type="text/javascript">
-  document.getElementById('button').addEventListener('click', function() {
-    var num = document.getElementById('num').value;
-    var val = document.getElementById('val').value;
-    var list = document.getElementById('list').value.split(' ');
-
-    Init(num, val, list)
-  })
-
-
   var TOTAL_NUMBER = 2,
     TOTAL_VALUE = 3;
 
@@ -45,7 +18,7 @@
     TOTAL_VALUE = val;
 
     resultValue = 0;
-	resultTotal = resultRest = undefined;
+    resultTotal = resultRest = undefined;
 
     Permutation(stringToNumber(list), function(arr) {
       Calculation(arr, function(res) {
@@ -142,6 +115,33 @@
       return item * 1
     })
   }
+  </script>
+</head>
+
+<body>
+  <div>
+    <label>团队人数</label>
+    <input type="text" id="num" value="2">
+  </div>
+  <div>
+    <label>单人发票金额</label>
+    <input type="text" id="val" value="3">
+  </div>
+  <div>
+    <label>发票列表（空格隔开）</label>
+    <input type="text" id="list" value="1.5 1.2 3.5 4.2 2.7 6.8">
+  </div>
+  <div>
+    <input type="button" id="button" value="提交">
+  </div>
+  <script type="text/javascript">
+  document.getElementById('button').addEventListener('click', function() {
+    var num = document.getElementById('num').value;
+    var val = document.getElementById('val').value;
+    var list = document.getElementById('list').value.split(' ');
+
+    Init(num, val, list)
+  })
   </script>
 </body>
 
