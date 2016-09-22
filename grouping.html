@@ -3,124 +3,153 @@
 
 <head>
   <title></title>
-  <style type="text/css">
-
-  </style>
+  <meta name="viewport" content="width=device-width,user-scalable=no">
   <script type="text/javascript">
-  var TOTAL_NUMBER = 2,
-    TOTAL_VALUE = 3;
+  /**
+   * 假设现在有N张发票，总面额是11,000元。
+   * 实现一个算法：如何将这N张发票尽可能分给10个人，使每个人的发票总面额大于1000元，而且余下来的发票总面额尽可能最大
+   */
+  var DynamicProgramming = (function() {
+    var TOTAL_NUMBER = 2,
+      TOTAL_VALUE = 3;
 
-  var resultValue,
-    resultTotal, resultRest;
+    var resultValue,
+      resultTotal, resultRest;
 
-  function Init(num, val, list, callback) {
-    TOTAL_NUMBER = num;
-    TOTAL_VALUE = val;
+    return function(num, val, list, callback) {
+      TOTAL_NUMBER = num;
+      TOTAL_VALUE = val;
 
-    resultValue = -1;
-    resultTotal = resultRest = undefined;
+      resultValue = -1;
+      resultTotal = resultRest = undefined;
 
-    Permutation(stringToNumber(list), function(arr) {
-      Calculation(arr, function(res) {
-        if (res.status === true) {
-          Optimum(res.total, res.rest)
-        }
+      Permutation(stringToNumber(list), function(arr) {
+        Calculation(arr, function(res) {
+          if (res.status === true) {
+            Optimum(res.total, res.rest)
+          }
+        })
       })
-    })
 
-    callback && callback(resultTotal, resultRest, resultValue)
-  }
-
-  function Optimum(total, rest) {
-    var val = 0;
-    for (var i = 0; i < rest.length; i++) {
-      val += rest[i];
+      callback && callback(resultTotal, resultRest, resultValue)
     }
 
-    if (val > resultValue) {
-      resultValue = val;
-      resultTotal = total;
-      resultRest = rest;
-
-      console.log(resultTotal, resultRest, resultValue)
-    }
-  }
-
-  function Calculation(arr, callback) {
-
-    var num = 0,
-      val = 0;
-
-    var totalArr = [],
-      currentArr = [];
-
-    times(arr.slice())
-
-    function times(arr) {
-      if (arr.length == 0) {
-        callback && callback({
-          status: false,
-          rest: [num, val],
-          totoal: totalArr
-        })
-
-        return;
+    /**
+     * 计算符合条件的最优解
+     * @param {Array} total 符合条件的数组排列顺序
+     * @param {Array} rest  剩余参数数组
+     */
+    function Optimum(total, rest) {
+      var val = 0;
+      for (var i = 0; i < rest.length; i++) {
+        val += rest[i];
       }
 
-      val += arr[0];
-      currentArr.push(arr[0]);
+      if (val > resultValue) {
+        resultValue = val;
+        resultTotal = total;
+        resultRest = rest;
 
-      if (val > TOTAL_VALUE) {
-        totalArr.push(currentArr);
-        currentArr = [];
+        console.log(resultTotal, resultRest, resultValue)
+      }
+    }
+
+    /**
+     * 计算一个数组中符合每组数据的和大于某个值的排列
+     * @param {Array}   arr      传入的数组
+     * @param {Function}
+     */
+    function Calculation(arr, callback) {
+
+      var num = 0,
         val = 0;
-        num++;
-      }
 
-      if (num == TOTAL_NUMBER) {
-        callback && callback({
-          status: true,
-          rest: arr.slice(1),
-          total: totalArr
-        })
-        return;
-      }
+      var totalArr = [],
+        currentArr = [];
 
-      arr.shift();
-      times(arr)
+      times(arr.slice())
+
+      function times(arr) {
+        if (arr.length == 0) {
+          callback && callback({
+            status: false,
+            rest: [num, val],
+            totoal: totalArr
+          })
+
+          return;
+        }
+
+        val += arr[0];
+        currentArr.push(arr[0]);
+
+        if (val > TOTAL_VALUE) {
+          totalArr.push(currentArr);
+          currentArr = [];
+          val = 0;
+          num++;
+        }
+
+        if (num == TOTAL_NUMBER) {
+          callback && callback({
+            status: true,
+            rest: arr.slice(1),
+            total: totalArr
+          })
+          return;
+        }
+
+        arr.shift();
+        times(arr)
+      }
     }
-  }
 
-  function Permutation(arr, callback) {
-    var result = [];
+    /**
+     * 排列组合算法：传入一个数组，计算所有可能的排列组合，在回调中逐一执行
+     * @param {Array}   arr      默认数组
+     * @param {Function} 
+     */
+    function Permutation(arr, callback) {
+      var result = [];
 
-    times(arr, result);
+      times(arr, result);
 
-    function times(arr, result) {
-      var length = arr.length;
-      if (length == 0) {
-        callback && callback(result)
-        return;
-      }
-      for (var i = 0; i < length; i++) {
-        var newArr = arr.slice();
-        newArr.splice(i, 1);
+      function times(arr, result) {
+        var length = arr.length;
+        if (length == 0) {
+          callback && callback(result)
+          return;
+        }
+        for (var i = 0; i < length; i++) {
+          var newArr = arr.slice();
+          newArr.splice(i, 1);
 
-        var newResult = [].concat(result, arr[i])
-        times(newArr, newResult)
+          var newResult = [].concat(result, arr[i])
+          times(newArr, newResult)
+        }
       }
     }
-  }
 
-  function stringToNumber(arr) {
-    return arr.map(function(item) {
-      return item * 1
-    })
-  }
+    /**
+     * 将数组中的字段强制转换为数字
+     * @param  {Array} arr 需要转换的数组
+     * @return {Array}     转换之后的数组
+     */
+    function stringToNumber(arr) {
+      return arr.map(function(item) {
+        return item * 1
+      })
+    }
+  })()
   </script>
 </head>
 
 <body>
+  <div>
+    <p>假设现在有N张发票，总面额是11,000元。</p>
+    <p>实现一个算法：如何将这N张发票尽可能分给10个人，使每个人的发票总面额大于1000元，而且余下来的发票总面额尽可能最大</p>
+  </div>
+
   <form>
     <div>
       <label>团队人数</label>
@@ -152,13 +181,14 @@
       <code id="result_value"></code>
     </div>
   </div>
+  
   <script type="text/javascript">
   document.getElementById('button').addEventListener('click', function() {
     var num = document.getElementById('num').value;
     var val = document.getElementById('val').value;
     var list = document.getElementById('list').value.split(' ');
 
-    Init(num, val, list, function(total, rest, value) {
+    DynamicProgramming(num, val, list, function(total, rest, value) {
       document.getElementById('result').style.display = "block";
 
       document.getElementById('result_total').innerHTML = JSON.stringify(total);
