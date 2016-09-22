@@ -1,0 +1,148 @@
+<!doctype html>
+<html>
+
+<head>
+  <title></title>
+  <style type="text/css">
+
+  </style>
+</head>
+
+<body>
+  <div>
+    <label>团队人数</label>
+    <input type="text" id="num" value="2">
+  </div>
+  <div>
+    <label>单人发票金额</label>
+    <input type="text" id="val" value="3">
+  </div>
+  <div>
+    <label>发票列表（空格隔开）</label>
+    <input type="text" id="list" value="1.5 1.2 3.5 4.2 2.7 6.8">
+  </div>
+  <div>
+    <input type="button" id="button" value="提交">
+  </div>
+  <script type="text/javascript">
+  document.getElementById('button').addEventListener('click', function() {
+    var num = document.getElementById('num').value;
+    var val = document.getElementById('val').value;
+    var list = document.getElementById('list').value.split(' ');
+
+    Init(num, val, list)
+  })
+
+
+  var TOTAL_NUMBER = 2,
+    TOTAL_VALUE = 3;
+
+  var resultValue,
+    resultTotal, resultRest;
+
+  function Init(num, val, list) {
+    TOTAL_NUMBER = num;
+    TOTAL_VALUE = val;
+
+    resultValue = 0;
+	resultTotal = resultRest = undefined;
+
+    Permutation(stringToNumber(list), function(arr) {
+      Calculation(arr, function(res) {
+        if (res.status === true) {
+          Optimum(res.total, res.rest)
+        }
+      })
+    })
+  }
+
+  function Optimum(total, rest) {
+    var val = 0;
+    for (var i = 0; i < rest.length; i++) {
+      val += rest[i];
+    }
+
+    if (val > resultValue) {
+      resultValue = val;
+      resultTotal = total;
+      resultRest = rest;
+
+      console.log(resultTotal, resultRest, resultValue)
+    }
+  }
+
+  function Calculation(arr, callback) {
+
+    var num = 0,
+      val = 0;
+
+    var totalArr = [],
+      currentArr = [];
+
+    times(arr.slice())
+
+    function times(arr) {
+      if (arr.length == 0) {
+        callback && callback({
+          status: false,
+          rest: [num, val],
+          totoal: totalArr
+        })
+
+        return;
+      }
+
+      val += arr[0];
+      currentArr.push(arr[0]);
+
+      if (val > TOTAL_VALUE) {
+        totalArr.push(currentArr);
+        currentArr = [];
+        val = 0;
+        num++;
+      }
+
+      if (num == TOTAL_NUMBER) {
+        callback && callback({
+          status: true,
+          rest: arr.slice(1),
+          total: totalArr
+        })
+        return;
+      }
+
+      arr.shift();
+      times(arr)
+    }
+  }
+
+  function Permutation(arr, callback) {
+    var result = [];
+
+    times(arr, result);
+
+    function times(arr, result) {
+      var length = arr.length;
+      if (length == 0) {
+        callback && callback(result)
+        return;
+      }
+      for (var i = 0; i < length; i++) {
+        var newArr = arr.slice();
+        newArr.splice(i, 1);
+
+        var newResult = [].concat(result, arr[i])
+        times(newArr, newResult)
+      }
+    }
+  }
+
+  function stringToNumber(arr) {
+    return arr.map(function(item) {
+      return item * 1
+    })
+  }
+  </script>
+</body>
+
+</html>
