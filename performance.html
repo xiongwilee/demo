@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" class=" js csstransforms3d">
+
+<head>
+  <meta charset="utf-8">
+  <!-- disable zooming -->
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=0">
+  <title>页面性能测试</title>
+  <script type="text/javascript" src=""></script>
+</head>
+
+<body>
+  <script type="text/javascript">
+  var onLoad = window.onload || function() {};
+  window.onload = function() {
+    onLoad();
+    var hookArr = [
+      "./js/watermark.js",
+      "./js/zepto.js",
+      "./js/performance.js",
+      "./js/runcode.js"
+    ];
+    for (var i = 0, len = hookArr.length; i < len; i++) {
+      var script = document.createElement('script');
+      script.src = hookArr[i];
+      script.async = false;
+      document.body.appendChild(script);
+    }
+  };
+  </script>
+</body>
+
+</html>
