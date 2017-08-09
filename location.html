@@ -1,0 +1,70 @@
+<html>  
+    <head>  
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />  
+        <title>获取当前位置</title>  
+        <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>  
+        <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.4"></script>  
+        <script type="text/javascript">  
+            $(document).ready(function() {  
+                $("button").click(function(event) {  
+                    if(navigator.geolocation){  
+                        navigator.geolocation.getCurrentPosition(  
+                            function(p){  
+                                var latitude=p.coords.latitude;//获取坐标点纬度  
+                                var longitude=p.coords.longitude;//获取坐标点经度  
+                                //以指定的经度与纬度创建一个坐标点  
+                                var po=new BMap.Point(longitude,latitude);  
+                                //创建一个地理解析器  
+                                var geocoder=new BMap.Geocoder();  
+                                //获取位置  
+                                geocoder.getLocation(po,function(rs){  
+                                    //获取地理组件  
+                                    var addComp=rs.addressComponents;  
+                                    //获取省份  
+                                    var province=addComp.province;  
+                                    //获取城市  
+                                    var city=addComp.city;  
+                                    //获取区县  
+                                    var district=addComp.district;  
+                                    //获取街道  
+                                    var street=addComp.street;  
+                                    //获取街道号  
+                                    var streetNumber=addComp.streetNumber;  
+                                    $("p").append(province+city+district+street+streetNumber);//将获取到的信息输出到页面  
+                                });  
+                            },function(e){  
+                                switch (e.code) {  
+                                    case e.TIMEOUT:  
+                                        alert("定位失败，请求获取用户位置超时");  
+                                        break;  
+                                    case e.PERMISSION_DENIED:  
+                                        alert("您拒绝了使用位置服务功能，查询已取消");  
+                                        break;  
+                                    case e.POSITION_UNAVAILABLE:  
+                                        alert("抱歉，暂时无法为您所在的星球提供位置服务");  
+                                        break;  
+                                    case e.UNKNOWN_ERROR:  
+                                        alert("发生一个位置错误");  
+                                        break;  
+                                }  
+                            },{  
+                                //指示浏览器获取高精度的位置，默认false  
+                                enableHighAcuracy: true,  
+                                //指定获取地理位置的超时时间，默认不限时，单位为毫秒  
+                                timeout:5000,  
+                                //最长有效期，在重复获取地理位置时，此参数指定多久再次获取位置  
+                                maximumAge:2000  
+                            }  
+                        );  
+                    }else{  
+                        alert("不支持");  
+                    }  
+                });  
+            });  
+        </script>  
+    </head>  
+    <body>  
+        <button>获取</button>  
+        <p></p>  
+    </body>  
+</html>  
