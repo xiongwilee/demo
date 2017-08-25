@@ -1,0 +1,104 @@
+<html>
+
+<head>
+  <link rel="icon" href="/assets/images/mobile/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+  <script>
+  ! function(e, t) { "object" == typeof exports && "object" == typeof module ? module.exports = t() : "function" == typeof define && define.amd ? define("callapp", [], t) : "object" == typeof exports ? exports.callapp = t() : e.callapp = t() }(this, function() { return function(e) {
+      function t(r) { if (n[r]) return n[r].exports; var i = n[r] = { exports: {}, id: r, loaded: !1 }; return e[r].call(i.exports, i, i.exports, t), i.loaded = !0, i.exports } var n = {}; return t.m = e, t.c = n, t.p = "", t(0) }([function(e, t) { "use strict";
+
+      function n(e, t) { for (var n = e.split("."), r = t.split("."), i = 0; i < n.length || i < r.length; i += 1) { var a = parseInt(n[i], 10) || 0,
+            o = parseInt(r[i], 10) || 0; if (a < o) return -1; if (a > o) return 1 } return 0 }
+
+      function r(e) { m || (m = h.createElement("iframe"), m.id = "callapp_iframe_" + Date.now(), m.frameborder = "0", m.style.cssText = "display:none;border:0;width:0;height:0;", h.body.appendChild(m)), m.src = e }
+
+      function i(e) { var t = h.createElement("a");
+        t.setAttribute("href", e), t.style.display = "none", h.body.appendChild(t); var n = h.createEvent("HTMLEvents");
+        n.initEvent("click", !1, !1), t.dispatchEvent(n) } Object.defineProperty(t, "__esModule", { value: !0 }); var a = {},
+        o = window.navigator.userAgent,
+        c = !1,
+        d = !1,
+        s = "",
+        p = o.match(/Android[\s\/]([\d\.]+)/);
+      p ? (c = !0, s = p[1]) : o.match(/(iPhone|iPad|iPod)/) && (d = !0, p = o.match(/OS ([\d_\.]+) like Mac OS X/), p && (s = p[1].split("_").join("."))); var l = !1,
+        f = !1,
+        u = !1;
+      o.match(/(?:Chrome|CriOS)\/([\d\.]+)/) ? (l = !0, o.match(/Version\/[\d+\.]+\s*Chrome/) && (u = !0)) : o.match(/iPhone|iPad|iPod/) && (o.match(/Safari/) && o.match(/Version\/([\d\.]+)/) ? f = !0 : o.match(/OS ([\d_\.]+) like Mac OS X/) && (u = !0)); var h = window.document,
+        m = void 0;
+      a.gotoPage = function(e, t, a) { var p = e,
+          h = c && l && !u,
+          m = c && !!o.match(/samsung/i) && n(s, "4.3") >= 0 && n(s, "4.5") < 0,
+          v = d && n(s, "9.0") >= 0 && f; if (h || m || a) { var x = p.substring(0, p.indexOf("://")),
+            g = "#Intent;scheme=" + x + ";package=" + t + ";end";
+          p = p.replace(/.*?:\/\//g, "intent://"), p += g } v ? setTimeout(function() { return i(p) }, 100) : 0 === p.indexOf("intent:") ? setTimeout(function() { return window.location.href = p }, 100) : r(p) }, t["default"] = a, e.exports = t["default"] }]) });
+  </script>
+  <script>
+  function init() {
+
+    /* 唤起app && 支付宝 */
+    var ping = 3000;
+    var domain = {
+      'lfq': 'https://lfq.qufenqi.com',
+      'lfqHttp': 'http://lfq.qufenqi.com'
+    };
+    var openAlipay = '';
+    var isLegal = false;
+    var body = document.body;
+    var aLink = document.createElement("a");
+    var h5_url = decodeURIComponent('https%3A%2F%2Fqxx.qufenqi.com%2Fact%2Fpage%2Factivity%2F2996%3FchannelFrom%3Drent__mkt_sms_8667');
+    var alipay_url = 'alipays://platformapi/startapp?appId=20000047&publicId=2015102100501340&seed=zygg&actionType=WebView&url=https%3A%2F%2Fqxx.qufenqi.com%2Fact%2Fpage%2Factivity%2F2996%3FchannelFrom%3Drent__mkt_sms_8667';
+    var app_url = '';
+    var schema = "openapp?url=";
+
+    /* 域名校验 */
+    if (h5_url) {
+      for (var key in domain) {
+        isLegal = isLegal || !!~h5_url.indexOf(domain[key]);
+      }
+    }
+
+    /* 设置h5页地址 */
+    if (h5_url) {
+      schema += h5_url;
+    }
+
+    /* 如果有app原生页地址，则替换h5页地址 */
+    if (app_url) {
+      schema = app_url;
+    }
+
+    /* 尝试唤起app，手动创建a标签，并模拟点击 */
+    if (!openAlipay && isLegal) {
+      aLink.href = "laifenqi://" + schema;
+      body.appendChild(aLink);
+      aLink.click();
+    } else {
+      callapp.gotoPage(alipay_url, 'com.eg.android.AlipayGphone');
+    }
+
+    /* 超过ping值后，尝试跳转到支付宝链接 */
+    var start = Date.now(),
+      that = this;
+    var loadTimer = setTimeout(function() {
+
+      if (document.hidden || document.webkitHidden) {
+        return;
+      }
+      if (Date.now() - start > ping + 100) {} else {
+        /* 跳转至支付宝链接 */
+        if (!openAlipay && isLegal) {
+          window.location.href += '&alipay=1';
+        }
+      }
+
+    }, ping);
+  }
+  document.addEventListener('DOMContentLoaded', function() {
+    init();
+  });
+  </script>
+</body>
+
+</html>
