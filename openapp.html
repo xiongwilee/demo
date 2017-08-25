@@ -230,7 +230,7 @@
     return CallApp;
   });
 
-  var app = new CallApp({
+  var app1 = new CallApp({
     scheme: 'itms-appss://itunes.apple.com/app/apple-store/id1121090056',
     timeout: 2000,
     autoCall: true,
@@ -239,14 +239,33 @@
     }
   });
 
-  app.call(function(flag) {
-    alert('~~~' + flag)
+  /*app1.call(function(flag) {
+    alert('app1~~~' + flag)
+    if (flag) {
+      // 成功
+    } else {
+      // 失败
+    }
+  })*/
+
+  var app2 = new CallApp({
+    scheme: 'laifenqi://openapp',
+    timeout: 2000,
+    autoCall: true,
+    params: {
+      url: 'https://lfq.qufenqi.com/v2/home'
+    }
+  });
+
+  app2.call(function(flag) {
+    alert('app2~~~' + flag)
     if (flag) {
       // 成功
     } else {
       // 失败
     }
   })
+
   </script>
 </body>
 
