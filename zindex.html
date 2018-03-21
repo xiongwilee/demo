@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <title>zindex test</title>
+    <meta name="viewport" content="width=240, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <style type="text/css">
+    * {
+      padding: 0px;
+      margin: 0px;
+    }
+
+    #app {
+      z-index: 100;
+    }
+
+    .item {
+      height: 400px;
+      background: #aaaacc;
+    }
+
+    .item-dialog {
+      position: fixed;
+      z-index: 102;
+
+      right: 0px;
+      bottom: 0px;
+      left: 0px;
+
+      height: 300px;
+      background: #aaccaa;
+    }
+
+    .mask {
+      position: fixed;
+      z-index: 101;
+
+      top: 0px;
+      right: 0px;
+      bottom: 0px;
+      left: 0px;
+
+      background: #ccaaaa;
+    }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <div class="item item-1">元素一</div>
+      <div class="item item-2">元素二</div>
+      <div class="item item-3">元素三</div>
+      <div class="item item-4 item-dialog">这是浮动密码框</div>
+    </div>
+    <a href="" class="mask">这是遮罩</a>
+  </body>
+
+</html>
