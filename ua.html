@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>获取用户UA</title>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <h2>获取用户UA:</h2>
+  <pre id="ua"></pre>
+  <h2>获取用户COOKIE:</h2>
+  <pre id="cookie"></pre>
+
+  <script type="text/javascript">
+  document.getElementById('ua').innerHTML = window.navigator.userAgent;
+  document.getElementById('cookie').innerHTML = document.cookie;
+
+  document.cookie = 'test=test;domain=' + window.location.hostname + ';path=/;'
+  </script>
+</body>
+
+</html>
