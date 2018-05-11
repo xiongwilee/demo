@@ -17,6 +17,8 @@
   document.getElementById('cookie').innerHTML = document.cookie;
 
   document.cookie = 'test=test;domain=' + window.location.hostname + ';path=/;'
+
+  alert(window.__wxjs_environment);
   </script>
 </body>
 

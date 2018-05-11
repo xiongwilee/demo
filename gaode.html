@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+  <title>鼠标绘制点线面</title>
+  <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css" />
+  <script src="http://webapi.amap.com/maps?v=1.4.6&key=9d9e2051b95aecc2813d9c7c96a4b0be&plugin=AMap.MouseTool"></script>
+  <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
+</head>
+
+<body>
+  <div id="container"></div>
+  <div class="button-group">
+    <input type="button" class="button" value="开始鼠标绘制面" id="polygon" />
+    <input type="button" class="button" value="结束绘制" id="stop" />
+  </div>
+  <div class="result" style="position: fixed; bottom: 10px; left: 10px;">
+    <textarea id="result" style="height: 400px;width: 200px; background: rgba(255,255,255,0.5); font-family: 'Menlo', 'Liberation Mono', 'Consolas', 'DejaVu Sans Mono', 'Ubuntu Mono', 'Courier New', 'andale mono', 'lucida console', monospace"></textarea>
+  </div>
+  <script>
+  var map = new AMap.Map("container", {
+    resizeEnable: true
+  });
+  //在地图中添加MouseTool插件
+  var mouseTool = new AMap.MouseTool(map);
+
+  AMap.event.addDomListener(document.getElementById('polygon'), 'click', function() {
+    console.log('开始绘制……')
+    mouseTool.polygon();
+  }, false);
+
+  AMap.event.addDomListener(document.getElementById('stop'), 'click', function() {
+    console.log('结束绘制。')
+    mouseTool.close(true);
+  }, false);
+
+  AMap.event.addListener(mouseTool, 'draw', function(e) { //添加事件
+    var posObj = e.obj.getPath();
+    var res = posObj.map((item) => {
+      return {
+        lat: item.lat,
+        lng: item.lng
+      }
+    })
+
+    console.log(res);
+
+    document.getElementById('result').innerHTML = JSON.stringify(res, ' ', 2);
+  });
+  </script>
+</body>
+
+</html>
