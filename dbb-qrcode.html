@@ -1,0 +1,229 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta charset=utf-8 />
+  <meta name=viewport content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1">
+  <title> 生成大白儿童阅读小程序码 </title>
+  <style type="text/css">
+  .head {
+    border-bottom: 1px solid #efefef;
+    text-align: center;
+  }
+
+  .form {
+    border-bottom: 1px solid #efefef;
+    padding-bottom: 20px;
+  }
+
+  .form .form-item {
+    line-height: 2em;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+
+  .form .form-item .form-item-label {
+    display: inline-block;
+    width: 160px;
+    text-align: right;
+    font-size: inherit;
+    line-height: inherit;
+  }
+
+  .form .form-item .form-item-input {
+    display: inline-block;
+    width: 400px;
+    font-size: inherit;
+    line-height: inherit;
+    outline: none;
+  }
+
+  .form .form-item .form-item-button {
+    display: inline-block;
+    width: 160px;
+    border: none;
+    border-radius: 5px;
+    background: #0cc49a;
+    color: #ffffff;
+    font-size: inherit;
+    line-height: inherit;
+    outline: none;
+  }
+
+  .result {}
+
+  .result .result-item {
+    line-height: 2em;
+  }
+
+  .result .result-item .result-item-label {
+    display: inline-block;
+    width: 160px;
+    text-align: right;
+  }
+
+  .result .result-item .result-item-value {
+    display: inline-block;
+    width: 400px;
+  }
+  </style>
+</head>
+
+<body>
+  <div class="head">
+  	<h1>大白儿童阅读小程序码生成工具</h1>
+  </div>
+  <form class="form" id="form">
+    <div class="form-item">
+      <label class="form-item-label">小程序链接：</label>
+      <input class="form-item-input" id="url" type="text" name="url" value="/pages/home/home">
+    </div>
+    <div class="form-item">
+      <label class="form-item-label">channelFrom：</label>
+      <input class="form-item-input" id="channel" type="text" name="channel" value="dbb__xcx_test">
+    </div>
+    <div class="form-item">
+      <label class="form-item-label">图片大小：</label>
+      <input class="form-item-input" id="width" type="text" name="width" value="210">
+    </div>
+    <div class="form-item">
+      <label class="form-item-label"></label>
+      <button class="form-item-button" id="button" type="submit">立刻生成链接！</button>
+    </div>
+  </form>
+  <div class="result">
+    <div class="result-item">
+      <label class="result-item-label">获取图片链接：</label>
+      <pre class="result-item-value" id="imgLink"></pre>
+    </div>
+    <div class="result-item">
+      <label class="result-item-label">小程序链接：</label>
+      <pre class="result-item-value" id="qrcodeLink"></pre>
+    </div>
+    <div class="result-item">
+      <label class="result-item-label">生成的小程序码：</label>
+      <div class="result-item-value">
+        <img class="result-item-image" src="#" id="qrodeImg">
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+  (function() {
+    init();
+
+    function init() {
+      genAll();
+
+      document.getElementById('form').addEventListener('submit', function(evt) {
+        evt.preventDefault();
+
+        setLoading(true);
+        genAll();
+      });
+
+      document.getElementById('qrodeImg').addEventListener('load', function(evt) {
+        setLoading(false);
+      })
+    }
+
+    function setLoading(loading) {
+      if (loading) {
+        document.getElementById('button').innerHTML = '图片生成中……';
+      } else {
+        document.getElementById('button').innerHTML = '立刻生成链接！';
+      }
+    }
+
+    function genAll() {
+      var formData = getFormData('form');
+
+      // 小程序链接
+      var qrcodeUrl = genQrcodeUrl(formData.url, formData.channel);
+
+      // 图片链接
+      var imgUrl = genImgUrl({
+        width: formData.width,
+        qrcode_url: qrcodeUrl
+      });
+
+      document.getElementById('qrodeImg').src = imgUrl;
+      document.getElementById('imgLink').innerHTML = imgUrl;
+      document.getElementById('qrcodeLink').innerHTML = qrcodeUrl;
+    }
+
+    function genQrcodeUrl(url, channel) {
+      var urlObj = urlObjfy(url);
+
+      var queryData = queryPase(urlObj.queryString);
+      var queryDataMerge = Object.assign(queryData, {
+        channelFrom: channel
+      });
+
+      return urlObj.path + '?' + queryStringify(queryDataMerge);
+
+    }
+
+    function genImgUrl(data) {
+      var baseUrl = 'https://toy.qufenqi.com/v2/createQrCode'
+      var querys = Object.assign({
+        width: 210,
+        qrcode_url: '/pages/home/home'
+      }, data);
+
+      return baseUrl + '?' + queryStringify(querys);
+    }
+
+    function urlObjfy(url) {
+      var urlArr = url.split('?') || [];
+
+      // test=test1这种URL
+      if (!urlArr[1] && urlArr[0].indexOf('=') > -1) {
+        return {
+          queryString: urlArr[0],
+          path: ''
+        }
+      }
+
+      return {
+        queryString: urlArr[1] || '',
+        path: urlArr[0]
+      }
+    }
+
+    function queryStringify(data) {
+      return Object.keys(data).reduce((accu, curr, index) => {
+        return accu + (index === 0 ? '' : '&') + curr + '=' + encodeURIComponent(data[curr]);
+      }, '')
+    }
+
+    function queryPase(query) {
+      var queryString = urlObjfy(query).queryString;
+
+      return queryString.split('&').reduce((accu, curr, index) => {
+        var dataArr = curr.split('=');
+
+        if (dataArr.length == 2) {
+          accu[dataArr[0]] = decodeURIComponent(dataArr[1]);
+        }
+        return accu;
+      }, {})
+    }
+
+    function getFormData(id) {
+      var $form = document.getElementById(id);
+      var $elements = Array.prototype.slice.call($form.elements, 0);
+
+      var data = {};
+      $elements.forEach(($item) => {
+        if ($item.name && $item.value) {
+          data[$item.name] = $item.value;
+        }
+      })
+
+      return data;
+    }
+  })()
+  </script>
+</body>
+
+</html>
