@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>图片加载测试B</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="./js/timenow.js"></script>
+    <style>
+        * {
+        margin:0px;padding:0px;
+        }
+    </style>
+  </head>
+  <body>
+      <div style="height: 2000px; background-image: url(https://img002.qufenqi.com/products/00/9b/009b4e68fc7cc954a75d21709f1aa9da.png); background-size: cover;"></div>
+    <script>
+            (function(){
+                console.log(`dom loaded : ${Date.now()} !`)
+                window.onload = function(){
+                    console.log(`page loaded : ${Date.now()} !`)
+                }
+            })();
+    </script>
+  
+  </body>
+</html>
