@@ -1,3 +1,3 @@
 (function(){
-    console.log(`js loaded : ${Date.now()} !`)
+    console.log(`js loaded : ${Date.now()}`)
 })();
