@@ -4,15 +4,25 @@
 <head>
   <title>播放MP4测试</title>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 </head>
 
 <body>
   <a href="laifenqi://openapp?url=http%3A%2F%2Fwilee.me%2Fdemo%2Fvideo.html">在来分期APP中打开此页</a>
   <h2>自动播放:</h2>
   <video controls="controls" src="https://c-fecdn.qfq.me/media/xuexi-intro-english.mp4" autoplay="true"> 您的浏览器不支持播放视频功能 </video>
-  
+
   <h2>不自动播放:</h2>
   <video controls="controls" src="https://c-fecdn.qfq.me/media/xuexi-intro-english.mp4"> 您的浏览器不支持播放视频功能 </video>
+
+  <h2>其他测试：</h2>
+  <video id="Html5Video" class="video-js vjs-default-skin" preload controls autoplay  width="100%"  
+        poster="assets/images/movie/poster.jpg">   
+            <source id="src1" src="https://c-fecdn.qfq.me/media/xuexi-intro-english.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />  
+            <source id="src2" src="https://c-fecdn.qfq.me/media/xuexi-intro-math.mp4" type='video/ogg; codecs="theora, vorbis"' />  
+            <source id="src3" src="https://c-fecdn.qfq.me/media/xuexi-intro-chinese.mp4" type='video/webm; codecs="vp8, vorbis"' />  
+     您的浏览器不支持 video 标签。  
+ </video>  
 </body>
 
 </html>
