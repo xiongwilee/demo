@@ -1,0 +1,139 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+  <title>FOR MOMO</title>
+  <style>
+  /* Start of style template */
+  :root {
+      --theme-color: #285685;
+      --font-color: #33ff66;
+      --shade1: rgba(242, 38, 19, 0.5);
+      --shade2: rgba(0, 255, 255, 0.5);
+      --theme-font: 'VT323', monospace;
+  }
+  /* End of style template */
+
+  /* Start of project style */
+  body {
+      background-color: black;
+      font-family: var(--theme-font);
+      color: var(--font-color);
+      
+      display: flex;
+      justify-content: center;
+  }
+
+
+  .textCont {
+      font-size: 150%;
+      margin: 10%;
+      width: 60%;
+      height: 80%;
+  }
+  /* End of project style */
+
+
+
+
+  /* Start of generating the typing | blinking effect */
+  div.textCont::after {
+      content : "|";
+      animation: blinky 1s linear infinite;
+  }
+
+  @keyframes blinky {
+      0% {opacity:0;}
+      49.9% {opacity:0;}
+      50% {opacity:1;}
+      99.9% {opacity:1;}
+  }
+</style>
+</head>
+
+<body>
+  <div class="textCont"></div>
+  <script>
+  
+(function(){
+  // Potential text box for inputing target text
+  const text = `墨墨，
+
+这个时候的你已经睡着了吧，
+不知道有没有做梦，梦里都有谁？
+
+耳机里能听到你的呼吸声，娓娓，萦萦…
+而和你呼吸声共鸣的，还有海风和潮水，竟然着迷得有点不忍入眠。
+
+想了好久，决定用这种方式表达；哈哈，应该是第一次收到这样的情书吧（也是我第一次写这样的代码）。
+
+从加微信开始算起，我们认识了22天8小时39分；很短，也很长。
+
+短则不足一月，长则宛如一生；却又如你说，一生亦短，酸甜自知…
+从某一刻开始，有一种甜，不仅仅在舌尖；有一丝牵挂，不止于沧海桑田。
+
+原谅我不善于表达情感，甚至不善于冷暖寒暄。
+
+其实，每次沉默是有很多话想跟你说；
+而每次傻笑，却是想听你俏皮的私语……
+
+而我，甚至觉得自己可能是世界上最幸运的那个人了吧；倾听的温度便能让人怦然心动，吱唔的眷恋倾尽此生又何妨？
+
+怕吵到你，语音先挂了哦…
+
+晚安。
+
+想你，无时不刻。
+
+By Wilee
+2018.11.17 04:05`;
+
+  // Converting the paragraph into an array - string is bad for manipulating
+  const paragraph = text.split("");
+
+
+  // Initiating how many letters are there
+  let i = 0; 
+  // var clickSound = new Audio("http://www.freesfx.co.uk/rx2/mp3s/6/18660_1464810669.mp3");
+
+  function dashOut (arr){
+      
+      if (i<arr.length) {
+          console.log(arr[i]);
+          let textHtml = arr[i] == '\n' ? '<br/>' : arr[i];
+          document.querySelector(".textCont").innerHTML += textHtml;
+          i++;
+          console.log ('The i count: ' + i);
+          window.scrollTo({top: 1000000})
+          setTimeout(function(){dashOut(arr)},interval(textHtml));
+      }
+      
+  }
+
+  // setInterval(function(){(dashOut(paragraph))}, 500);
+
+
+
+  function interval(letter) {
+      console.log(letter);
+      if (letter == ";" || letter == "." || letter == "," || letter == "…" || letter == "，" || letter == "：" || letter == "、" || letter == "；") {
+          return Math.floor(Math.random() * 300 + 800);
+      } else {
+          return Math.floor(Math.random() * 50 + 100);
+      }
+  }
+
+
+  function startFromBegin (){
+      i = 0;
+      dashOut(paragraph);
+  }
+
+  startFromBegin();
+})()
+  </script>
+</body>
+</html>
