@@ -1,154 +1,137 @@
-(function(){
-  var $uploadArea = document.getElementById('upload_area');
-  var $uploadInput = document.getElementById('upload_input');
-  var $docContainer = document.getElementById('doc_container');
-  var $downloadArea = document.getElementById('download_area');
-  var docTemplate = {};
-  var docType = '1-7';
-
-  /**
-   * 入口方法
-   */
-  function init() {
-    setDefault();
-    bindEvent();
-  }
-
-  /**
-   * 初始化方法
-   */
-  function setDefault() {
-    getDocTemplate(docType);
-
-  }
-
-  /**
-   * 绑定事件
-   */
-  function bindEvent() {
-    // 拖拽上传
-    $uploadArea.addEventListener('drop', handleUploadXlsx, false);
-    // 点击上传
-    $uploadInput.addEventListener('change', handleUploadXlsx, false);
-
-    window.addEventListener("dragover",function(e){ e.preventDefault(); });
-    window.addEventListener("drop",function(e){ e.preventDefault(); });
-  }
-
-  function initTinymce(id) {
-    tinymce.init({
-      selector: `#${id}`,
-      plugins: [
-        "advlist autolink lists link image charmap print preview anchor",
-        "searchreplace visualblocks code fullscreen fullpage",
-        "insertdatetime media table contextmenu paste"
-      ],
-      toolbar: "insertfile undo redo | styleselect | bold italic | " +
-        "alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | " +
-        "link image"
-    });
-  }
-
-  /**
-   * 上传文件回调
-   */
-  function handleUploadXlsx(e) {
-    e.preventDefault();
-
-    var files = e.target.files || e.dataTransfer.files, f = files[0];
-    
-    // 文件格式校验
-    var isXlsxFile = /(\.xlsx)$/.test(f.name);
-    if (!isXlsxFile) {
-      return alert('请上传.xlsx后缀的文件');
-    }
-
-    var reader = new FileReader();
-    reader.onload = function(e) {
-      var data = new Uint8Array(e.target.result);
-      var workbook = XLSX.read(data, {type: 'array'});
-
-      var curSheetName = workbook.SheetNames[0];
-      var curSheetData = workbook.Sheets[curSheetName];
-      var curSheetJson = XLSX.utils.sheet_to_json(curSheetData);
-
-      genDoc(curSheetJson)
-    };
-    reader.readAsArrayBuffer(f);
-  }
-
-  /**
-   * 获取文书模板
-   */
-  function getDocTemplate(type, callback) {
-
-    // 避免file://协议下不能发送ajax请求的问题，直接使用script引入模板
-    // docTemplate[type] = document.getElementById(`template_${type}`).innerHTML;
-    // callback && callback(docTemplate[type]);
-    // return;
-
-    var docMap = {
-      '1-7':'./template/1-7.html',
-      '2-2':'./template/2-2.html',
-      '7-15':'./template/7-15.html',
-    };
-    
-    var tempUrl = docMap[type];
-
-    if (!tempUrl) throw `获取${type}文书模板失败：文件不存在`;
-
-    var req = new XMLHttpRequest();
-    req.open("GET", tempUrl, true);
-
-    req.onload = function(e) {
-      docTemplate[type] = e.target.response;
-      callback && callback(docTemplate[type]);
-    }
-
-    req.onerror = function(e) {
-      docTemplate[type] = document.getElementById(`template_${type}`).innerHTML;
-      callback && callback(docTemplate[type]);
-    }
-
-    req.send();
-  }
-
-  function genDoc(arr) {
-    $downloadArea.innerHTML = '如果没有自动下载请点击这里：';
-
-    console.log(arr);
-    arr.forEach(function(item, index) {
-      var docContent = replacer(docTemplate[docType], item);
-      var converted = htmlDocx.asBlob(docContent, {orientation: "portrait"});
-
-      var docName = `${item['案号']}-${item['被执行人姓名']}`;
-      saveAs(converted, `${docName}.docx`);
-
-      // 先不默认生成可视化文书
-      // var editor = document.createElement('textarea');
-      // editor.id = `content_${index}`;
-      // editor.innerHTML = docContent;
-      // editor.cols = "60";
-      // editor.rows="20";
-      // $docContainer.appendChild(editor);
-      // initTinymce(editor.id);
-
-      var link = document.createElement('a');
-      link.href = URL.createObjectURL(converted);
-      link.download = `${docName}.docx`;
-      link.appendChild(document.createTextNode(`${docName}.docx`));
-      $downloadArea.appendChild(link);
+/**
+ * 注意：
+ * 1. 为避免IE9和低版本极速模式，优先使用ES5语法
+ * 
+ */
+var vm = new Vue({
+  el: '#content',
+  data: {
+    tempList: [
+      {
+        id: "zhifuling",
+        logo: "shield.png",
+        name: "支付令",
+        title: "福建省厦门市海沧区人民法院支付令",
+        generated: null,
+        downloadlink: '',
+        templateArr: [],
+        templateDoc: '',
+      },
+      {
+        id: "1-7",
+        logo: "bank.png",
+        name: "七合一文书",
+        title: "福建省厦门市海沧区人民法院七合一送达文书",
+        generated: null,
+        downloadlink: '',
+        templateArr: [],
+        templateDoc: '',
+      }
+    ]
+  },
+  beforeCreate: function() {
+    this.$nextTick(function () {
+      vm.tempList.forEach(function(item){
+        vm.getDocTemplate(item.id, function(templateDoc){
+          item.templateDoc = templateDoc;
+        })
+      });
     })
-  }
+  },
+  methods: {
+    uploadFile: function (evt, index) {
+      var files = evt.target.files || evt.dataTransfer.files, f = files[0];
+    
+      // 文件格式校验
+      var isXlsxFile = /(\.xlsx)$/.test(f.name);
+      if (!isXlsxFile) {
+        return alert('请上传.xlsx后缀的文件');
+      }
 
-  function replacer(template, data) {
-    return template.replace(/(#（)(\S+)(）)/g, function(){
-      var replaceContent = arguments[2];
-      var replacedContent = data[replaceContent];
-      if(!replacedContent) return arguments[0];
-      return replacedContent;
-    });
-  }
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        var data = new Uint8Array(e.target.result);
+        var workbook = XLSX.read(data, {type: 'array'});
 
-  init();
-})();
+        var curSheetName = workbook.SheetNames[0];
+        var curSheetData = workbook.Sheets[curSheetName];
+        var curSheetJson = XLSX.utils.sheet_to_json(curSheetData);
+
+        // 重置当前文件
+        evt.target.value = '';
+
+        vm.genDoc(curSheetJson, index)
+      };
+
+      reader.readAsArrayBuffer(f);
+    },
+    genDoc: function (arr, index) {
+      var curTemp = vm.tempList[index];
+      
+      console.log(arr, curTemp);
+
+      if (!curTemp.templateDoc) {
+        return alert("获取模板失败，请稍后再试！");
+      }
+
+      if (arr.length ==0 ) {
+        return alert("xlsx文件没有数据！");
+      }
+
+      if (curTemp.generated === false) return;
+
+      curTemp.templateArr = arr;
+      curTemp.generated = false;
+      vm.$set(vm.tempList, index, curTemp)
+
+      setTimeout(function(){
+        var zip = new JSZip();
+        arr.forEach(function(item, index) {
+          var docContent = vm.replacer(curTemp.templateDoc, item);
+          var converted = htmlDocx.asBlob(docContent, {orientation: "portrait"});
+    
+          var docName = `${item['案号']}-${item['被执行人姓名']}`;
+    
+          zip.file(`${docName}.docx`, converted);
+        })
+    
+        zip.generateAsync({type:"blob"}).then(function(content) {
+            saveAs(content, "测试.zip");
+  
+            curTemp.downloadname = "测试.zip";
+            curTemp.downloadlink = URL.createObjectURL(content);
+            curTemp.generated = true;
+            vm.$set(vm.tempList, index, curTemp)
+        });
+      });
+    },
+    replacer: function(template, data) {
+      return template.replace(/(#（)(\S+)(）)/g, function(){
+        var replaceContent = arguments[2];
+        var replacedContent = data[replaceContent];
+        if(!replacedContent) return arguments[0];
+        return replacedContent;
+      });
+    },
+    getDocTemplate: function (id, callback) {      
+      var tempUrl = "./template/" + id + ".html";
+  
+      var req = new XMLHttpRequest();
+      req.open("GET", tempUrl, true);
+  
+      req.onload = function(e) {
+        if (e.target.status === 200) {
+          callback && callback(e.target.response);
+        } else {
+          throw "获取" + id + "模板失败：" + e.target.statusText;
+        }
+      }
+  
+      req.onerror = function(e) {
+        alert("获取模板失败：" + e.toString());
+      }
+  
+      req.send();
+    }
+  }
+});

@@ -1,0 +1,108 @@
+
+* {
+  margin: 0px;
+  padding: 0px;
+  margin: 0px;
+}
+html {
+  background: #e8e8e8;
+}
+#app {
+
+}
+#app .header .title {
+  background: #f86c48;
+  height: 80px;
+  padding-left: 80px;
+  background-image: url(../image/qd-logo.png);
+  background-size: 60px;
+  background-repeat: no-repeat;
+  background-position: 10px;
+}
+#app .header .title .sub-title {
+  color: rgba(255,255,255,0.6);
+  padding-top: 15px;
+}
+#app .header .title .main-title {
+  color: #ffffff;
+}
+#app .content {
+  width: 60%;
+  padding: 10px;
+  margin: 0 auto;
+  background: #ffffff;
+  min-height: 1000px;
+}
+#app .content .template-item {
+  clear: both;
+  border-bottom: 1px solid #efefef;
+}
+#app .content .template-item .item-left-bar {
+  height: 80px;
+  width: 80px;
+  padding: 40px;
+  float: left;
+}
+#app .content .template-item .item-left-bar img {
+  width: 100%;
+}
+#app .content .template-item .item-right-bar {
+  margin-left: 160px;
+  padding: 40px 0;
+}
+#app .content .template-item .item-right-bar > h5 {
+  line-height: 1em;
+  font-size: 24px;
+  color: #333333;
+}
+#app .content .template-item .item-right-bar > ul {
+  padding: 10px 0px 20px;
+}
+#app .content .template-item .item-right-bar > ul li {
+  font-size: 14px;
+  display: inline-block;
+  padding-right: 10px;
+}
+#app .content .template-item .item-right-bar > ul li a {
+  color: #ef9b85;
+  text-decoration: none;
+}
+#app .content .template-item .item-right-bar > ul li a:hover {
+  text-decoration: underline;
+}
+#app .content .template-item .item-right-bar > label {
+  clear: both;
+  display: inline-block;
+  padding: 10px;
+  background: #f86c48;
+  color: #fff2f2;
+  border-radius: 5px;
+  font-size: 16px;
+}
+#app .content .template-item .item-right-bar > label:hover {
+  cursor: pointer;
+  background: #ef5f3b;
+  color: #ffffff;
+}
+#app .content .template-item .item-right-bar > label input {
+  opacity: 0;
+  position: absolute;
+  z-index: -100;
+}
+#app .content .template-item .item-right-bar > span a {
+  color: #ef9b85;
+  text-decoration: none;
+} 
+#app .content .template-item .item-right-bar > span a:hover {
+  text-decoration: underline;
+}
+#app .content .template-item .item-right-bar > span {
+  font-size: 14px;
+  color: #666666;
+} 
+#app .content .footer {
+  text-align: center;
+  font-size: 14px;
+  line-height: 4em;
+  color: #999999;
+} 
