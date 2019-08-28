@@ -106,6 +106,15 @@ var vm = new Vue({
       });
     },
     replacer: function(template, data) {
+      var result = template;
+      
+      for(var key in data ) {
+        result = result.replace(new RegExp('#（' + key + '）','g'), data[key])
+      }
+
+      return result;
+      // TODO: 这里的正则在这种场景有问题
+      // 申请人#（申请人）以下简称“#（申请人简称）”于#（申请时间）向本院申请支付令。申请人#（申请人 简称）称，#（借贷时间）
       return template.replace(/(#（)(\S+)(）)/g, function(){
         var replaceContent = arguments[2];
         var replacedContent = data[replaceContent];
