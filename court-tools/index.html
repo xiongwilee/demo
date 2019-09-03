@@ -1,18 +1,20 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <link rel="shortcut icon" href="./image/favicon.ico" type=image/x-icon>
-  <title>趣店——执行文书一键生成工具</title>
-  <script src="./js/vue.min.js"></script>
-  <script src="./js/jszip.min.js"></script>
-  <script src="./js/FileSaver.js"></script>
-  <script src="./js/xlsx.full.min.js"></script>
-  <script src="./js/html-docx.js"></script>
-  <link href="./css/main.css" rel="stylesheet" type="text/css">
-</head>
-<body>
-  <div id="app">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="./image/favicon.ico" type=image/x-icon>
+    <title>趣店——执行文书一键生成工具</title>
+    <script src="./js/vue.min.js"></script>
+    <script src="./js/jszip.min.js"></script>
+    <script src="./js/FileSaver.js"></script>
+    <script src="./js/xlsx.full.min.js"></script>
+    <script src="./js/html-docx.js"></script>
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/export-doc.js"></script>
+    <link href="./css/main.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <div id="app">
       <div class="header">
         <div class="title">
           <h4 class="sub-title">趣店集团</h4>
@@ -21,26 +23,46 @@
       </div>
       <div class="content" id="content">
         <div class="template-item" v-for="(tempItem, index) in tempList">
-            <div class="item-left-bar">
-              <img :src="'./image/' + tempItem.logo ">
-            </div>
-            <div class="item-right-bar">
-              <h5>{{tempItem.title}}</h5>
-              <ul>
-                <li><a :href="'./template/'+tempItem.id+'.xlsx'">[点击下载xlsx模板]</a></li>
-                <li><a :href="'./template/'+tempItem.id+'.docx'">[点击下载word示例]</a></li>
-              </ul>
-              <label><input type="file" @change="uploadFile($event, index)">上传xlsx模板并自动生成文书</label>
-              <template v-if="tempItem.generated !== null">
-              <span v-show="tempItem.generated">生成{{tempItem.templateArr.length}}份文书成功！<a :href="tempItem.downloadlink" :download="tempItem.downloadname">如果没有自动下载请点击这里</a></span>
-              <span v-show="!tempItem.generated">正在生成{{tempItem.templateArr.length}}份文书，请稍后…</span>
-              </template>
-            </div>
+          <div class="item-left-bar">
+            <img :src="'./image/' + tempItem.logo " />
+          </div>
+          <div class="item-right-bar">
+            <h5>{{ tempItem.title }}</h5>
+            <ul>
+              <li>
+                <a :href="'./template/'+tempItem.id+'.xlsx'"
+                  >[点击下载xlsx模板]</a
+                >
+              </li>
+              <li>
+                <a :href="'./template/'+tempItem.id+'.docx'"
+                  >[点击下载word示例]</a
+                >
+              </li>
+            </ul>
+            <label
+              ><input
+                type="file"
+                @change="uploadFile($event, index)"
+              />上传xlsx模板并自动生成文书</label
+            >
+            <template v-if="tempItem.generated !== null">
+              <span v-show="tempItem.generated"
+                >生成{{ tempItem.templateArr.length }}份文书成功！<a
+                  :href="tempItem.downloadlink"
+                  :download="tempItem.downloadname"
+                  >如果没有自动下载请点击这里</a
+                ></span
+              >
+              <span v-show="!tempItem.generated"
+                >正在生成{{ tempItem.templateArr.length }}份文书，请稍后…</span
+              >
+            </template>
+          </div>
         </div>
         <div class="footer">©2019 Qudian</div>
       </div>
-  </div>
-  <script src="./js/main.js"></script>
-</body>
+    </div>
+    <script src="./js/main.js"></script>
+  </body>
 </html>
-
