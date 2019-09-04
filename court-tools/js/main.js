@@ -67,6 +67,26 @@ var vm = new Vue({
 
       reader.readAsArrayBuffer(f)
     },
+    getWordStyle: function(elementArr) {
+      var styleStr = ''
+      Array.prototype.forEach.call(elementArr, function(item) {
+        if (item.tagName === 'STYLE') {
+          styleStr = item.innerHTML
+        }
+      })
+
+      return styleStr
+    },
+    getWordContent: function(elementArr) {
+      var contentEle = {}
+      Array.prototype.forEach.call(elementArr, function(item) {
+        if (item.tagName === 'DIV' && /WordSection/.test(item.className)) {
+          contentEle = item
+        }
+      })
+
+      return contentEle
+    },
     genDoc: function(arr, index) {
       var curTemp = vm.tempList[index]
 
@@ -93,11 +113,12 @@ var vm = new Vue({
         arr.forEach(function(item, index) {
           var docContent = vm.replacer(curTemp.templateDoc, item)
 
-          var converted = htmlDocx.asBlob(docContent, {
-            orientation: 'portrait',
-          })
-          var content = $($(`${docContent}`)[11]).wordExport(docName)
-          console.log(content)
+          // var converted = htmlDocx.asBlob(docContent, {
+          //   orientation: 'portrait',
+          // })
+          var styleStr = vm.getWordStyle($(`${docContent}`))
+          var contentEle = vm.getWordContent($(`${docContent}`))
+          var content = $(contentEle).wordExport(docName, styleStr)
           var docName = `${item['案号']}-${item['被执行人姓名']}`
 
           zip.file(`${docName}.doc`, content)

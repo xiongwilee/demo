@@ -1,6 +1,6 @@
 if (typeof jQuery !== 'undefined' && typeof saveAs !== 'undefined') {
   ;(function($) {
-    $.fn.wordExport = function(fileName) {
+    $.fn.wordExport = function(fileName, styleStr) {
       fileName =
         typeof fileName !== 'undefined' ? fileName : 'jQuery-Word-Export'
       var static = {
@@ -65,56 +65,7 @@ if (typeof jQuery !== 'undefined' && typeof saveAs !== 'undefined') {
       mhtmlBottom += '--NEXT.ITEM-BOUNDARY--'
 
       //TODO: load css from included stylesheet
-      var styles =
-        '@font-face {font-family:宋体;} @font-face {font-family:"Cambria Math";' +
-        'panose-1:2 4 5 3 5 4 6 3 2 4;}' +
-        '@font-face' +
-        '{font-family:方正小标宋简体;}' +
-        '@font-face' +
-        '{font-family:仿宋;}' +
-        '@font-face' +
-        '{font-family:仿宋_GB2312;}' +
-        '@font-face' +
-        '{font-family:"@宋体";}' +
-        '@font-face' +
-        '{font-family:"@仿宋";}' +
-        '@font-face' +
-        '{font-family:"@方正小标宋简体";}' +
-        '@font-face' +
-        '{font-family:"@仿宋_GB2312";}' +
-        '/* Style Definitions */' +
-        'p.MsoNormal, li.MsoNormal, div.MsoNormal' +
-        '{margin:0cm;' +
-        'margin-bottom:.0001pt;' +
-        'text-align:justify;' +
-        'text-justify:inter-ideograph;' +
-        'font-size:10.5pt;' +
-        'font-family:"Times New Roman",serif;}' +
-        'p.MsoHeader, li.MsoHeader, div.MsoHeader' +
-        '{margin:0cm;' +
-        'margin-bottom:.0001pt;' +
-        'text-align:center;' +
-        'layout-grid-mode:char;' +
-        'border:none;' +
-        'padding:0cm;' +
-        'font-size:9.0pt;' +
-        'font-family:"Calibri",sans-serif;}' +
-        'p.MsoFooter, li.MsoFooter, div.MsoFooter' +
-        '{margin:0cm;' +
-        'margin-bottom:.0001pt;' +
-        'layout-grid-mode:char;' +
-        'font-size:9.0pt;' +
-        'font-family:"Times New Roman",serif;}' +
-        '.MsoChpDefault' +
-        '{font-size:10.5pt;' +
-        'font-family:"Calibri",sans-serif;}' +
-        '/* Page Definitions */' +
-        '@page WordSection1' +
-        '{size:595.3pt 841.9pt;' +
-        'margin:102.05pt 76.55pt 102.05pt 76.55pt;' +
-        'layout-grid:15.6pt;}' +
-        'div.WordSection1' +
-        '{page:WordSection1;}'
+      var styles = styleStr
 
       // Aggregate parts of the file together
       var fileContent =
