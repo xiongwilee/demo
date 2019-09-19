@@ -39,7 +39,8 @@ if (typeof jQuery !== 'undefined' && typeof saveAs !== 'undefined') {
         var context = canvas.getContext('2d')
         context.drawImage(img[i], 0, 0, w, h)
         // Get data URL encoding of image
-        var uri = canvas.toDataURL('image/png')
+        // NOTE word 2003 支持jpg的图片，不支持png
+        var uri = canvas.toDataURL('image/jpeg')
         $(img[i]).attr('src', img[i].src)
         img[i].width = w
         img[i].height = h
@@ -51,7 +52,6 @@ if (typeof jQuery !== 'undefined' && typeof saveAs !== 'undefined') {
           data: uri.substring(uri.indexOf(',') + 1),
         }
       }
-
       // Prepare bottom of mhtml file with image data
       var mhtmlBottom = '\n'
       for (var i = 0; i < images.length; i++) {

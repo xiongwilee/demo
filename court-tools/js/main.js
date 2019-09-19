@@ -57,7 +57,11 @@ var vm = new Vue({
 
         var curSheetName = workbook.SheetNames[0]
         var curSheetData = workbook.Sheets[curSheetName]
-        var curSheetJson = XLSX.utils.sheet_to_json(curSheetData)
+
+        console.log(curSheetData, curSheetName)
+        var curSheetJson = XLSX.utils.sheet_to_json(curSheetData, {
+          raw: false,
+        })
 
         // 重置当前文件
         evt.target.value = ''
@@ -87,10 +91,13 @@ var vm = new Vue({
 
       return contentEle
     },
+    requestQRCode: function(orderId) {
+      // http://debt.chunmiantest.qudian.com/court/showQrCode?id=订单id&is_png=1
+      // `http://debt.fadongxi.com:8080/court/showQrCode?id=${orderId}&is_png=1`
+      return `http://debt.fadongxi.com:8080/court/showQrCode?id=${orderId}&is_png=1`
+    },
     genDoc: function(arr, index) {
       var curTemp = vm.tempList[index]
-
-      console.log(arr, curTemp)
 
       if (!curTemp.templateDoc) {
         return alert('获取模板失败，请稍后再试！')
@@ -105,7 +112,6 @@ var vm = new Vue({
       curTemp.templateArr = arr
       curTemp.generated = false
       vm.$set(vm.tempList, index, curTemp)
-
       setTimeout(function() {
         console.time('生成word文件：')
 
@@ -118,9 +124,13 @@ var vm = new Vue({
           // })
           var styleStr = vm.getWordStyle($(`${docContent}`))
           var contentEle = vm.getWordContent($(`${docContent}`))
+          // 构建获取二维码的dom节点
+          var qrcode = vm.requestQRCode(item['订单号'])
+          $(contentEle)
+            .find('img.qrcode')
+            .attr('src', qrcode)
           var content = $(contentEle).wordExport(docName, styleStr)
-          var docName = `${item['案号']}-${item['被执行人姓名']}`
-
+          var docName = `${item['立案庭案号']}-${item['被申请人姓名']}`
           zip.file(`${docName}.doc`, content)
         })
 
