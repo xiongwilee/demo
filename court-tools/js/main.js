@@ -83,12 +83,13 @@ var vm = new Vue({
     },
     getWordContent: function(elementArr) {
       var contentEle = {}
+      
       Array.prototype.forEach.call(elementArr, function(item) {
-        if (item.tagName === 'DIV' && /WordSection/.test(item.className)) {
-          contentEle = item
+        if (item.tagName === 'DIV' && /WordSection|Section/.test(item.className)) {
+          // 获取word生成的内容，需要将内容包裹一层div，导出插件是获取innerHTML的
+          contentEle = $('<div></div>').append(item)
         }
       })
-
       return contentEle
     },
     requestQRCode: function(orderId) {
