@@ -28,6 +28,7 @@ var vm = new Vue({
         templateDoc: '',
       },
     ],
+    repayTemplate: '',
   },
   beforeCreate: function() {
     this.$nextTick(function() {
@@ -35,6 +36,10 @@ var vm = new Vue({
         vm.getDocTemplate(item.id, function(templateDoc) {
           item.templateDoc = templateDoc
         })
+      })
+      // 额外读取一个还款说明的模版
+      vm.getDocTemplate('还款说明', function(templateDoc) {
+        vm.repayTemplate = templateDoc
       })
     })
   },
@@ -83,9 +88,12 @@ var vm = new Vue({
     },
     getWordContent: function(elementArr) {
       var contentEle = {}
-      
+
       Array.prototype.forEach.call(elementArr, function(item) {
-        if (item.tagName === 'DIV' && /WordSection|Section/.test(item.className)) {
+        if (
+          item.tagName === 'DIV' &&
+          /WordSection|Section/.test(item.className)
+        ) {
           // 获取word生成的内容，需要将内容包裹一层div，导出插件是获取innerHTML的
           contentEle = $('<div></div>').append(item)
         }
@@ -99,6 +107,7 @@ var vm = new Vue({
     },
     genDoc: function(arr, index) {
       var curTemp = vm.tempList[index]
+      var curId = vm.tempList[index].id
 
       if (!curTemp.templateDoc) {
         return alert('获取模板失败，请稍后再试！')
@@ -113,6 +122,7 @@ var vm = new Vue({
       curTemp.templateArr = arr
       curTemp.generated = false
       vm.$set(vm.tempList, index, curTemp)
+
       setTimeout(function() {
         console.time('生成word文件：')
 
@@ -125,14 +135,34 @@ var vm = new Vue({
           // })
           var styleStr = vm.getWordStyle($(`${docContent}`))
           var contentEle = vm.getWordContent($(`${docContent}`))
-          // 构建获取二维码的dom节点
-          var qrcode = vm.requestQRCode(item['订单号'])
-          $(contentEle)
-            .find('img.qrcode')
-            .attr('src', qrcode)
           var content = $(contentEle).wordExport(docName, styleStr)
           var docName = `${item['立案庭案号']}-${item['被申请人姓名']}`
           zip.file(`${docName}.doc`, content)
+
+          // 如果是支付令的生成，需要额外生成一份还款说明的附件
+          if (curId === 'zhifuling') {
+            var repayTemplate = vm.repayTemplate
+            if (!repayTemplate) {
+              return alert('获取还款说明模版失败!')
+            }
+            var repayDoc = vm.replacer(repayTemplate, item)
+            var repayStyle = vm.getWordStyle($(`${repayDoc}`))
+            var repayContentEle = vm.getWordContent($(`${repayDoc}`))
+            // 构建获取二维码的dom节点
+            var qrcode = vm.requestQRCode(item['订单号'])
+            $(repayContentEle)
+              .find('img.qrcode')
+              .attr('src', qrcode)
+            var repayContent = $(repayContentEle).wordExport(
+              undefined,
+              repayStyle
+            )
+            var repayDocName = `${item['立案庭案号']}-${
+              item['被申请人姓名']
+            }-还款说明`
+
+            zip.file(`${repayDocName}.doc`, repayContent)
+          }
         })
 
         console.timeEnd('生成word文件：')
