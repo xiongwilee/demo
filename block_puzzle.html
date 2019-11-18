@@ -70,11 +70,11 @@
             let curBlock = resultBlock[i].map(item => {
               return item.map(subItem => subItem * (1 + i))
             })
-            
+
             resultLand = this.mergeMatrix(curBlock, resultLand)
             if (!resultLand) return false
           }
-          return { resultBlock , resultLand}
+          return { resultBlock, resultLand }
         })
       }
       /**
@@ -121,7 +121,7 @@
             // 碰撞检测，如果两者全大于0，则发生碰撞
             if (!!curLand[offsetX][offsetY] && !!block[i][j]) return false
 
-            curLand[offsetX][offsetY] = curLand[offsetX][offsetY] + block[i][j]
+            curLand[offsetX][offsetY] = curLand[offsetX][offsetY] || block[i][j]
           }
         }
 
@@ -288,11 +288,12 @@
     <div>
       <label>方块列表</label>
       <textarea type="text"
-        id="blockList">[[[1,1],[0,1]], [[1],[1],[1]], [[1],[1]], [[1,0],[1,1],[1,0]], [[0,0,1],[1,1,1]]]</textarea>
+        id="blockList">[[[1,1,1],[1,0,0]],[[1,1,1],[0,1,0]],[[0,1],[1,1],[1,0]],[[1],[1]],[[1],[1]],[[1],[1],[1],[1]],[[0,1],[1,1],[1,0]],[[1,1],[1,0]],[[1,0,1],[1,1,1]],[[0,1,0],[1,1,1]]]</textarea>
     </div>
     <div>
       <label>棋盘</label>
-      <textarea type="text" id="land">[[0,0,0,0], [0,0,0,0], [0,0,0,0], [0,0,0,0]]</textarea>
+      <textarea type="text"
+        id="land">[[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]]</textarea>
     </div>
     <div>
       <input type="button" id="button" value="提交">
@@ -324,7 +325,11 @@
 
       document.getElementById('result').style.display = 'block'
       document.getElementById('result_list').value = JSON.stringify(result.resultBlock)
-      document.getElementById('result_example').value = result.resultLand.reverse().join('\n')
+      // 转成字母
+      const resultExample = result.resultLand.reverse().map((item) => {
+        return item.map((subItem) => String.fromCharCode(64 + subItem))
+      })
+      document.getElementById('result_example').value = resultExample.join('\n')
     })
   </script>
 </body>
