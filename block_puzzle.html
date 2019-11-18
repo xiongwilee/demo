@@ -15,6 +15,15 @@
       min-width: 500px;
       min-height: 100px;
     }
+
+    .submit-button {
+      height: 40px;
+    }
+
+    .submit-result {
+      font-size: 14px;
+      color: green;
+    }
   </style>
   <script type="text/javascript">
     /**
@@ -296,10 +305,13 @@
         id="land">[[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]]</textarea>
     </div>
     <div>
-      <input type="button" id="button" value="提交">
+      <input type="button" id="button" value="提交" class="submit-button">
     </div>
   </form>
   <div id="result" style="display: none;">
+    <div>
+      <span id="submit_result" class="submit-result"></span>
+    </div>
     <div>
       <label>分配顺序：</label>
       <textarea id="result_list"></textarea>
@@ -312,6 +324,10 @@
 
   <script type="text/javascript">
     document.getElementById('button').addEventListener('click', function () {
+      const timeStart = Date.now()
+      
+      document.getElementById('result').style.display = 'none'
+
       const blockList = document.getElementById('blockList').value
       const land = document.getElementById('land').value
 
@@ -319,11 +335,11 @@
 
       const result = blockPuzzle.puzzle()
       if (!result) {
-        document.getElementById('result').style.display = 'none'
         return alert('找不到合理的拼图方案')
       }
 
       document.getElementById('result').style.display = 'block'
+      document.getElementById('submit_result').innerHTML = `拼图成功，用时：${(Date.now() - timeStart)/1000} s`
       document.getElementById('result_list').value = JSON.stringify(result.resultBlock)
       // 转成字母
       const resultExample = result.resultLand.reverse().map((item) => {
