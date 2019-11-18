@@ -320,7 +320,7 @@
 
       document.getElementById('result').style.display = 'block'
       document.getElementById('result_list').value = JSON.stringify(result.resultBlock)
-      document.getElementById('result_example').value = JSON.stringify(result.resultLand.reverse())
+      document.getElementById('result_example').value = result.resultLand.reverse().join('\n')
     })
   </script>
 </body>
