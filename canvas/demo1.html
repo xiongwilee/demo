@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link href="/static/build/styles/samples.37902ba3b7fe.css" rel="stylesheet" type="text/css" />
+        
+        <title>使用canvas来绘制图形 - 绘制一个三角形 - code sample</title>
+    </head>
+    <body>
+        
+            <html>
+ <body onload="draw();">
+   <canvas id="canvas" width="100" height="100"></canvas>
+ </body>
+</html>
+
+        
+        
+            <script>
+                function draw() {
+  var canvas = document.getElementById('canvas');
+  if (canvas.getContext) {
+    var ctx = canvas.getContext('2d');
+
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(0, 75);
+    ctx.lineTo(100, 75);
+    ctx.lineTo(100, 0);
+    ctx.fill();
+  }
+}
+
+            </script>
+        
+    </body>
+</html>
